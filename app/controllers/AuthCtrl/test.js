@@ -1,21 +1,11 @@
 const $baseCtrl = require('../$baseCtrl');
 const { APIResponse } = require('../../utils');
-const smsService = require('../../services/sms');
-
+const models = require('../../models')
 module.exports = $baseCtrl(async (req, res) => {
-   
-    // try {
-    //     let p = await smsService.sendVerificationCode('+201092740203');
-    //     console.log(p)
-    // } catch (error) {
-    //     console.log(error);
-    //     return APIResponse.ServerError(res, error);
-    // }
-
-    // return APIResponse.Ok(res, { message: 'Message sent successfully' });
-    var verificationResult = await smsService.verificationCode('+201092740203', '131024');
-    if (verificationResult.status !== 'approved')
-        return APIResponse.BadRequest(res, 'Code is invailed');
-    return APIResponse.Ok(res, { message: 'Phone verified' });
-        
+  let user = await models._user.findOne({phone: '+201212754599'})
+//   let user = await models._user.find()
+ if(user){
+    await user.delete()
+ }
+   return APIResponse.Ok(res,'A7la msa beka')     
 });
