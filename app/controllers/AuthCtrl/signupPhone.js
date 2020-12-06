@@ -29,6 +29,21 @@ module.exports = $baseCtrl(
         return APIResponse.BadRequest(res, " phone Already in use .");
       }
 
+      
+      // Encrypt Password
+      var salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(req.body.password, salt);
+      req.body.password = hash;
+      
+      // Upload photo if enter by user
+      if (req.files && req.files["photo"]) {
+        req.body.photo = req.files["photo"][0].secure_url;
+      }
+      
+      
+      // save user to db
+      const newUser = await new models._user(req.body).save();
+      
       try {
         await smsService.sendVerificationCode(req.body.phone);
         console.log('Code Sent Successfully .')
@@ -36,21 +51,6 @@ module.exports = $baseCtrl(
         console.log(error);
         return APIResponse.ServerError(500, error);
     }
-
-    // Encrypt Password
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(req.body.password, salt);
-    req.body.password = hash;
-
-    // Upload photo if enter by user
-    if (req.files && req.files["photo"]) {
-      req.body.photo = req.files["photo"][0].secure_url;
-    }
-
-   
-    // save user to db
-    const newUser = await new models._user(req.body).save();
-
     const payload = {
       userId: newUser.id,
       userRole: newUser.role,
