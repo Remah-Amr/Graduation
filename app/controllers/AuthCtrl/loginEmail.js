@@ -38,6 +38,7 @@ module.exports = $baseCtrl(async (req, res) => {
   };
 
   if (!user.used) {
+    // why this
     user.used = true;
     await user.save();
   }

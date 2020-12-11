@@ -21,20 +21,20 @@ module.exports = $baseCtrl(
     }
 
     if (!req.body.phone.match(/^\+201[0125][0-9]{8}$/))
-        return APIResponse.BadRequest(res, 'Phone is invailed');
+      return APIResponse.BadRequest(res, 'Phone is invailed');
 
     // Check if phone Already Exist
-      let existPhone = await models._user.findOne({ phone: req.body.phone });
-      if (existPhone) {
-        return APIResponse.BadRequest(res, " phone Already in use .");
-      }
+    let existPhone = await models._user.findOne({ phone: req.body.phone });
+    if (existPhone) {
+      return APIResponse.BadRequest(res, " phone Already in use .");
+    }
 
-      try {
-        await smsService.sendVerificationCode(req.body.phone);
-        console.log('Code Sent Successfully .')
+    try {
+      await smsService.sendVerificationCode(req.body.phone);
+      console.log('Code Sent Successfully .')
     } catch (error) {
-        console.log(error);
-        return APIResponse.ServerError(500, error);
+      console.log(error);
+      return APIResponse.ServerError(500, error);
     }
 
     // Encrypt Password
@@ -47,7 +47,7 @@ module.exports = $baseCtrl(
       req.body.photo = req.files["photo"][0].secure_url;
     }
 
-   
+
     // save user to db
     const newUser = await new models._user(req.body).save();
 

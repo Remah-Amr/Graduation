@@ -8,6 +8,10 @@ const passport = require("passport");
 let apiRouter = express.Router();
 
 // public
+apiRouter.post("/add-owner", ctrls.ownerCtrl.enrollNewOwner);
+apiRouter.post("/add-car", ctrls.carCtrl.enrollNewCar);
+apiRouter.post("/add-owner", ctrls.ownerCtrl.enrollNewOwner);
+// =================================================
 apiRouter.post("/verify-reset", ctrls.AuthCtrl.resetPasswordByPhone);
 apiRouter.post("/forget", ctrls.AuthCtrl.sendForgetSMSPhone);
 apiRouter.post("/signup-phone", ctrls.AuthCtrl.signupPhone);

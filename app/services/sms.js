@@ -11,7 +11,7 @@ module.exports = {
         return await client
             .verify.services(process.env.TWILIO_ACCOUNT_VERIFY_SID)
             .verifications
-            .create({ to: phoneNumber, channel: 'sms' });
+            .create({ to: phoneNumber, channel: 'sms' });//what is channel 
     },
 
     async verificationCode(phoneNumber, code) {
