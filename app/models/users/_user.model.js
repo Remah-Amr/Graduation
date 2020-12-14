@@ -55,6 +55,9 @@ const schema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    wallet: {
+      type: Number,
+    },
     code: {
       type: String,
     },
@@ -93,7 +96,9 @@ const response = (doc, options) => {
     gender: doc.gender,
     photo: doc.photo,
     email: doc.email,
-    phone: doc.phone,
+    center: doc.center,  //to employee 
+    car: doc.car,       // to driver  
+    owner: doc.owner,  //to car
     country: doc.country,
     enabled: doc.enabled,
     birthdate: doc.birthdate,

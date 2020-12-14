@@ -21,13 +21,13 @@ module.exports = $baseCtrl(
     }
 
     if (!req.body.phone.match(/^\+201[0125][0-9]{8}$/))
-        return APIResponse.BadRequest(res, 'Phone is invailed');
+      return APIResponse.BadRequest(res, 'Phone is invailed');
 
     // Check if phone Already Exist
-      let existPhone = await models._user.findOne({ phone: req.body.phone });
-      if (existPhone) {
-        return APIResponse.BadRequest(res, " phone Already in use .");
-      }
+    let existPhone = await models._user.findOne({ phone: req.body.phone });
+    if (existPhone) {
+      return APIResponse.BadRequest(res, " phone Already in use .");
+    }
 
       
       // Encrypt Password
@@ -48,8 +48,8 @@ module.exports = $baseCtrl(
         await smsService.sendVerificationCode(req.body.phone);
         console.log('Code Sent Successfully .')
     } catch (error) {
-        console.log(error);
-        return APIResponse.ServerError(500, error);
+      console.log(error);
+      return APIResponse.ServerError(500, error);
     }
     const payload = {
       userId: newUser.id,
