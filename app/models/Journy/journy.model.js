@@ -3,32 +3,42 @@ const RandExp = require("randexp");
 const notificationService = require("../../services/notification");
 const $baseModel = require("../$baseModel");
 
+// // RegExp rules
+// // const usernameRules = /^[a-zA-Z][a-zA-Z0-9]{4,19}$/;
+// const passwordRules = /^.{6,}$/;
+// const emailRules = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+// const phoneRules = /^\+201[0125][0-9]{8}$/;
+// // https://regexr.com/3c53v
 
 const schema = new mongoose.Schema(
     {
-        address: {
-            type: String,
-            required: true,
+        driver: {
+            type: Number,
+            ref: 'user'
         },
-
-        code: {
-            type: String,
+        car: {
+            type: Number,
+            ref: 'car'
         },
-        enabled: {
-            type: Boolean,
-            default: true,
-        },
-
+        transactions: [
+            new mongoose.Schema(
+                {
+                    ids: {
+                        type: Number,
+                        ref: 'transaction',
+                    },
+                },
+                { _id: false }
+            ),
+        ],
     },
-    { timestamps: true }
 );
-
 const response = (doc, options) => {
     return {
         id: doc.id,
-        address: doc.address,
-        code: doc.code,
-        enabled: doc.enabled,
+        user: doc.user,
+        car: doc.car,
+        transactions: doc.transactions,
         createdAt: doc.createdAt,
         updatedAt: doc.updatedAt,
     };
@@ -52,7 +62,7 @@ schema.methods.sendNotification = async function (message) {
     }
     if (changed) await this.save();
 };
-module.exports = $baseModel("center", schema, {
+module.exports = $baseModel("journy", schema, {
     responseFunc: response,
     // here you can add any option with in baseSchema
 });

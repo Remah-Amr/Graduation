@@ -13,10 +13,10 @@ module.exports = $baseCtrl(
 
         // Check if values not entered
         if (
-            req.body.carType === undefined ||
-            req.body.carNumber === undefined ||
+            req.body.type === undefined ||
+            req.body.number === undefined ||
             req.body.owner === undefined ||
-            req.body.transportType === undefined
+            req.body.transporter === undefined
         ) {
             return APIResponse.BadRequest(res, "You have to fill all options .");
         }
@@ -25,17 +25,21 @@ module.exports = $baseCtrl(
         //     return APIResponse.BadRequest(res, 'Phone is invailed');
 
         // Check if phone Already Exist
-        let existPhone = await models._user.findOne({ carNumber: req.body.carNumber });
-        if (existPhone) {
+        let existCar = await models.car.findOne({ number: req.body.number });
+        if (existCar) {
             return APIResponse.BadRequest(res, " car Already in rolled  .");
         }
-        let existOwner = await models._user.findOne({ _id: req.body.owner });
+        let existOwner = await models.owner.findOne({ _id: req.body.owner });
         if (!existOwner) {
-            return APIResponse.BadRequest(res, " owner not found rolled  .");
+            return APIResponse.BadRequest(res, " owner not found .");
         }
 
-        req.body.code = generator.generateCodes('#+#+#', 100)[0]
-
+        //   to ensure genterate unique code to every car 
+        let code;
+        do {
+            code = generator.generateCodes('#+#+#', 100)[0]
+        } while (await models.car.findOne({ code: code }));
+        req.body.code = code
 
         // Upload photo if enter by user
         if (req.files && req.files["photo"]) {
@@ -44,10 +48,10 @@ module.exports = $baseCtrl(
 
         let newCar
         // save car under transporterType 
-        if (req.body.transportType === 'public') {
+        if (req.body.transporter === 'public') {
             newCar = await new models.public(req.body).save();
         }
-        if (req.body.transportType === 'travel') {
+        if (req.body.transporter === 'travel') {
             newCar = await new models.travel(req.body).save();
         }
         const options = {}

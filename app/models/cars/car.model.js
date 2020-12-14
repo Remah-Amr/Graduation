@@ -12,20 +12,20 @@ const $baseModel = require("../$baseModel");
 
 const schema = new mongoose.Schema(
     {
-        carType: {
+        type: {
             type: String,
             enum: ["bus", "private"],
             required: true,
         },
-        carNumber: {
+        number: {
             type: String,
             required: true,
         },
-        transportType: {
+        transporter: {
             type: String,
             enum: ["public", "travel"],
         },
-        carPhoto: {
+        photo: {
             type: String,
             default:
                 "https://res.cloudinary.com/derossy-backup/image/upload/v1555206304/deross-samples/placeholder-profile-male.jpg",
@@ -34,9 +34,13 @@ const schema = new mongoose.Schema(
             type: Number,
             ref: 'owner'
         },
+        currentDriver: {
+            type: Number,
+            ref: 'user'
+        },
         enabled: {
             type: Boolean,
-            default: false,
+            default: true,
         },
         code: {
             type: String,
@@ -44,6 +48,15 @@ const schema = new mongoose.Schema(
         qrCode: {
             type: String,
         },
+        current_driver: {
+            type: Number,
+            ref: 'user'
+        },
+        current_journy: {
+            type: Number,
+            ref: 'journy'
+        },
+
 
     },
     { timestamps: true, discriminatorKey: "transportType" }
@@ -52,12 +65,11 @@ const schema = new mongoose.Schema(
 const response = (doc, options) => {
     return {
         id: doc.id,
-        carType: doc.carType,
+        type: doc.type,
         photo: doc.photo,
-        carNumber: doc.carNumber,
-        carPhoto: doc.carPhoto,
+        number: doc.number,
         enabled: doc.enabled,
-        transportType: doc.transportType,
+        transporter: doc.transporter,
         code: doc.code,
         qrCode: doc.qrCode,
         createdAt: doc.createdAt,

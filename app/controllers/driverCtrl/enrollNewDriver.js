@@ -5,7 +5,6 @@ const models = require("../../models");
 const { APIResponse } = require("../../utils");
 const bcrypt = require("bcryptjs");
 const cloudinaryStorage = require("../../services/cloudinaryStorage");
-const smsService = require('../../services/sms');
 
 
 module.exports = $baseCtrl(
@@ -17,7 +16,9 @@ module.exports = $baseCtrl(
         if (
             req.body.username === undefined ||
             req.body.password === undefined ||
-            req.body.phone === undefined
+            req.body.phone === undefined ||
+            req.body.car === undefined
+
         ) {
             return APIResponse.BadRequest(res, "You have to fill all options .");
         }
@@ -30,7 +31,17 @@ module.exports = $baseCtrl(
         if (existPhone) {
             return APIResponse.BadRequest(res, " phone Already in use .");
         }
-        // make owner enabled by defult
+        // Check if Car  Exist
+        let existCar = await models.car.findOne({ _id: req.body.car });
+        if (!existCar) {
+            return APIResponse.BadRequest(res, " car not found .");
+        }
+
+        // save driver under car owner 
+        req.body.owner = existCar.owner
+
+
+        // make driver enabled by defult
         req.body.enabled = true
 
         // Encrypt Password
@@ -38,14 +49,14 @@ module.exports = $baseCtrl(
         var hash = bcrypt.hashSync(req.body.password, salt);
         req.body.password = hash;
 
-        // Upload photo if enter by owner  
+        // Upload photo if enter by driver  
         if (req.files && req.files["photo"]) {
             req.body.photo = req.files["photo"][0].secure_url;
         }
 
 
-        // save owner to db  role = owner
-        const newUser = await new models.owner(req.body).save();
+        // save owner to db  role = driver
+        const newUser = await new models.driver(req.body).save();
 
         const payload = {
             userId: newUser.id,

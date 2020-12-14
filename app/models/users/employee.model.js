@@ -8,4 +8,13 @@ const schema = new mongoose.Schema({
     },
 
 }, { discriminatorKey: "role" });
+const response = doc => {
+    return {
+        id: doc.id,
+        // type: doc.type,
+        center: doc.center,
+        createdAt: doc.createdAt,
+        updatedAt: doc.updatedAt
+    };
+};
 module.exports = UserModel.discriminator("employee", schema);

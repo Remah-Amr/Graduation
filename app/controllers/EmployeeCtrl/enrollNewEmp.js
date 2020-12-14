@@ -17,7 +17,8 @@ module.exports = $baseCtrl(
         if (
             req.body.username === undefined ||
             req.body.password === undefined ||
-            req.body.phone === undefined
+            req.body.phone === undefined ||
+            req.body.center === undefined
         ) {
             return APIResponse.BadRequest(res, "You have to fill all options .");
         }
@@ -30,7 +31,11 @@ module.exports = $baseCtrl(
         if (existPhone) {
             return APIResponse.BadRequest(res, " phone Already in use .");
         }
-        // make owner enabled by defult
+        let existCenter = await models.center.findOne({ _id: req.body.center });
+        if (!existCenter) {
+            return APIResponse.BadRequest(res, " center not found .");
+        }
+        // make emp enabled by defult
         req.body.enabled = true
 
         // Encrypt Password
@@ -43,9 +48,8 @@ module.exports = $baseCtrl(
             req.body.photo = req.files["photo"][0].secure_url;
         }
 
-
-        // save owner to db  role = owner
-        const newUser = await new models.owner(req.body).save();
+        // save owner to db  role = employee
+        const newUser = await new models.employee(req.body).save();
 
         const payload = {
             userId: newUser.id,
