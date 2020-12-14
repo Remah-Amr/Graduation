@@ -14,7 +14,9 @@ const schema = new mongoose.Schema({
         type: Number,
         ref: 'owner'
     },
-
-
+    current_journey:{
+        type:Number,
+        ref: 'journey'
+    }
 }, { discriminatorKey: "role" });
 module.exports = UserModel.discriminator("driver", schema);

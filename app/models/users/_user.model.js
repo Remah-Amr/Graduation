@@ -102,6 +102,7 @@ const response = (doc, options) => {
     country: doc.country,
     enabled: doc.enabled,
     birthdate: doc.birthdate,
+    current_journey: doc.current_journey,
     pushTokens: doc.pushTokens,
     role: doc.role,
     createdAt: doc.createdAt,

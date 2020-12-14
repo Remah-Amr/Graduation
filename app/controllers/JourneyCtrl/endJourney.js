@@ -11,6 +11,9 @@ module.exports = $baseCtrl(
 
         await car.save()
 
+        req.me.current_journey = undefined
+        await req.me.save()
+
         return APIResponse.Created(res, car)
     }
 );

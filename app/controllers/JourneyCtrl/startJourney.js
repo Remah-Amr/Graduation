@@ -17,6 +17,9 @@ module.exports = $baseCtrl(
             driver: req.me.id,
             car: req.me.car
         }).save()
+
+        req.me.current_journey = newjourney.id
+        await req.me.save()
         
         // this to used in transaction method to fech current journey 
         car.current_driver = req.me.id
