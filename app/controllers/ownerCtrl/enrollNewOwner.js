@@ -1,12 +1,7 @@
-
-const jwt = require("jsonwebtoken");
 const $baseCtrl = require("../$baseCtrl");
 const models = require("../../models");
 const { APIResponse } = require("../../utils");
-const bcrypt = require("bcryptjs");
 const cloudinaryStorage = require("../../services/cloudinaryStorage");
-const smsService = require('../../services/sms');
-
 
 module.exports = $baseCtrl(
     [{ name: "photo", maxCount: 1 }],
@@ -30,7 +25,7 @@ module.exports = $baseCtrl(
         if (existPhone) {
             return APIResponse.BadRequest(res, " phone Already in use .");
         }
-        // make owner enabled by defult
+        // make owner enabled by default
         req.body.enabled = true
 
         // Encrypt Password
@@ -47,19 +42,6 @@ module.exports = $baseCtrl(
         // save owner to db  role = owner
         const newUser = await new models.owner(req.body).save();
 
-        const payload = {
-            userId: newUser.id,
-            userRole: newUser.role,
-            enabled: newUser.enabled,
-        };
-        const options = {};
-        const token = jwt.sign(payload, process.env.JWT_SECRET, options);
-
-        const response = {
-            token: token,
-            user: newUser,
-        };
-
-        return APIResponse.Created(res, response);
+        return APIResponse.Created(res, newUser);
     }
 );

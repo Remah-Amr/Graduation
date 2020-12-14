@@ -1,14 +1,9 @@
-const jwt = require("jsonwebtoken");
 const $baseCtrl = require("../$baseCtrl");
 const models = require("../../models");
 const { APIResponse } = require("../../utils");
-const bcrypt = require("bcryptjs");
-const cloudinaryStorage = require("../../services/cloudinaryStorage");
-const smsService = require('../../services/sms');
 
 
 module.exports = $baseCtrl(
-
     async (req, res) => {
 
         // Check if values not entered
@@ -27,8 +22,8 @@ module.exports = $baseCtrl(
             return APIResponse.BadRequest(res, " user not found .");
         }
         let newShipping = req.body.charge
-        // make wallet charged  and decrease our profit =1
-        existUser.wallet += newShipping - 1
+        
+        existUser.wallet += newShipping 
 
         // save new charge
         await existUser.save()

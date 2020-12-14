@@ -92,13 +92,13 @@ const response = (doc, options) => {
   return {
     id: doc.id,
     username: doc.username,
-    password: options.password && !doc.activated ? doc.password : undefined,
+    wallet: doc.wallet,
     gender: doc.gender,
     photo: doc.photo,
     email: doc.email,
     center: doc.center,  //to employee 
     car: doc.car,       // to driver  
-    owner: doc.owner,  //to car
+    owner: doc.owner,  //to driver
     country: doc.country,
     enabled: doc.enabled,
     birthdate: doc.birthdate,

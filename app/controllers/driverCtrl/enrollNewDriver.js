@@ -1,5 +1,3 @@
-
-const jwt = require("jsonwebtoken");
 const $baseCtrl = require("../$baseCtrl");
 const models = require("../../models");
 const { APIResponse } = require("../../utils");
@@ -32,11 +30,15 @@ module.exports = $baseCtrl(
             return APIResponse.BadRequest(res, " phone Already in use .");
         }
         // Check if Car  Exist
-        let existCar = await models.car.findOne({ _id: req.body.car });
+        const carId = parseInt(req.body.car)
+        if(isNaN(carId)) return APIResponse.BadRequest(res)
+        let existCar = await models._car.findById(carId);
         if (!existCar) {
             return APIResponse.BadRequest(res, " car not found .");
         }
 
+
+        req.body.car = carId
         // save driver under car owner 
         req.body.owner = existCar.owner
 
@@ -58,19 +60,6 @@ module.exports = $baseCtrl(
         // save owner to db  role = driver
         const newUser = await new models.driver(req.body).save();
 
-        const payload = {
-            userId: newUser.id,
-            userRole: newUser.role,
-            enabled: newUser.enabled,
-        };
-        const options = {};
-        const token = jwt.sign(payload, process.env.JWT_SECRET, options);
-
-        const response = {
-            token: token,
-            user: newUser,
-        };
-
-        return APIResponse.Created(res, response);
+        return APIResponse.Created(res, newUser);
     }
 );

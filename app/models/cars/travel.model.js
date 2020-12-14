@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const CarModel = require("./car.model");
+const CarModel = require("./_car.model");
 
 const schema = new mongoose.Schema(
     {

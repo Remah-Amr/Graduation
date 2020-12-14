@@ -7,16 +7,7 @@ const passport = require("passport");
 
 let apiRouter = express.Router();
 
-// public
-apiRouter.post("/add-owner", ctrls.ownerCtrl.enrollNewOwner);
-apiRouter.post("/add-car", ctrls.carCtrl.enrollNewCar);
-apiRouter.post("/add-driver", ctrls.driverCtrl.enrollNewDriver);
-apiRouter.post("/add-center", ctrls.CenterCtrl.enrollNewCenter);
-apiRouter.post("/add-employee", ctrls.EmployeeCtrl.enrollNewEmp);
-apiRouter.post("/wallet/charge", ctrls.WalletCtrl.chargeWallet);
 
-
-// =======================================================================
 
 apiRouter.post("/verify-reset", ctrls.AuthCtrl.resetPasswordByPhone);
 apiRouter.post("/forget", ctrls.AuthCtrl.sendForgetSMSPhone);

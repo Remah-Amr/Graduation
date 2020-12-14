@@ -1,11 +1,8 @@
-
-const jwt = require("jsonwebtoken");
 const $baseCtrl = require("../$baseCtrl");
 const models = require("../../models");
 const { APIResponse } = require("../../utils");
 const bcrypt = require("bcryptjs");
 const cloudinaryStorage = require("../../services/cloudinaryStorage");
-const smsService = require('../../services/sms');
 
 
 module.exports = $baseCtrl(
@@ -31,10 +28,13 @@ module.exports = $baseCtrl(
         if (existPhone) {
             return APIResponse.BadRequest(res, " phone Already in use .");
         }
-        let existCenter = await models.center.findOne({ _id: req.body.center });
+        const centerId = parseInt(req.body.center)
+        if(isNaN(centerId)) return APIResponse.BadRequest(res)
+        let existCenter = await models.center.findById(centerId);
         if (!existCenter) {
             return APIResponse.BadRequest(res, " center not found .");
         }
+        req.body.center = centerId
         // make emp enabled by defult
         req.body.enabled = true
 
@@ -50,20 +50,6 @@ module.exports = $baseCtrl(
 
         // save owner to db  role = employee
         const newUser = await new models.employee(req.body).save();
-
-        const payload = {
-            userId: newUser.id,
-            userRole: newUser.role,
-            enabled: newUser.enabled,
-        };
-        const options = {};
-        const token = jwt.sign(payload, process.env.JWT_SECRET, options);
-
-        const response = {
-            token: token,
-            user: newUser,
-        };
-
-        return APIResponse.Created(res, response);
+        return APIResponse.Created(res, newUser);
     }
 );
