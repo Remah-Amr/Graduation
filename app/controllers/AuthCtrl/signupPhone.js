@@ -40,7 +40,7 @@ module.exports = $baseCtrl(
         req.body.photo = req.files["photo"][0].secure_url;
       }
       
-      
+      req.body.role = 'client'
       // save user to db
       const newUser = await new models._user(req.body).save();
       

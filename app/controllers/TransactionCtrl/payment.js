@@ -12,10 +12,18 @@ module.exports = $baseCtrl(
             return APIResponse.BadRequest(res, "You have to fill all options .");
         }
 
-        const car = await models.car.findOne({ code: req.body.code })
+        const car = await models._car.findOne({ code: req.body.code })
+        if(!car) return APIResponse.NotFound(res,'No car with that code')
+
+        if(req.me.wallet < req.body.cost)
+            return APIResponse.Forbidden(res,'You dont have enough money , recharge your wallet')
+
+        req.me.wallet -= req.body.cost
+        await req.me.save()
+        
 
         // create new transactions
-        const newTransaction = await new models.transaction.create({
+        const newTransaction = await new models.transaction({
             user: req.me.id,
             car: car.id,
             cost: req.body.cost,
@@ -23,12 +31,11 @@ module.exports = $baseCtrl(
         }).save()
 
         // push transaction in current journey 
-        const journey = await models.journey.findOne({ _id: car.current_journey })
-
-        // push transaction to current journey
-        journey.transactions.push(newTransaction._id)
-
-        await journey.save()
+        if(car.current_journey){
+            const journey = await models.journey.findById(car.current_journey)
+            journey.transactions.push(newTransaction._id)
+            await journey.save()
+        }
 
         return APIResponse.Created(res, newTransaction);
     }

@@ -14,8 +14,6 @@ module.exports = $baseCtrl(
             return APIResponse.BadRequest(res, "You have to fill all options .");
         }
 
-        if (!req.body.phone.match(/^\+201[0125][0-9]{8}$/))
-            return APIResponse.BadRequest(res, 'Phone is invailed');
         // Check if phone Already Exist
         let existUser = await models._user.findOne({ phone: req.body.phone });
         if (!existUser) {
@@ -28,13 +26,6 @@ module.exports = $baseCtrl(
         // save new charge
         await existUser.save()
 
-
-        const response = {
-            userShiping: req.body.charge,
-            userWallet: existUser.wallet
-
-        };
-
-        return APIResponse.Created(res, response);
+        return APIResponse.Created(res, existUser);
     }
 );

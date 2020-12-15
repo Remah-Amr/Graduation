@@ -9,11 +9,9 @@ module.exports = $baseCtrl(
         if (car.current_driver) {
             return APIResponse.Forbidden(res, " Car Alredy In Use .");
         }
-        else if (car.current_journey) {
-            return APIResponse.Forbidden(res, " journey alrady  started .");
-        }
         
-        let newjourney = await new models.journey.create({
+        
+        let newjourney = await new models.journey({
             driver: req.me.id,
             car: req.me.car
         }).save()

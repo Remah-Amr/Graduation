@@ -9,7 +9,7 @@ module.exports = $baseCtrl(
 
         
         // Check if phone Already Exist
-        let existCar = await models.car.findOne({ number: req.body.number });
+        let existCar = await models._car.findOne({ number: req.body.number });
         if (existCar) {
             return APIResponse.BadRequest(res, " car Already in use  .");
         }
@@ -19,16 +19,19 @@ module.exports = $baseCtrl(
         if (!existOwner) {
             return APIResponse.BadRequest(res, " owner not found .");
         }
-
+        
         //   to ensure genterate unique code to every car 
         let code;
         do {
             code = generator.generateCodes('#+#+#', 40)[0]
-        } while (await models.car.findOne({ code: code }));
+        } while (await models._car.findOne({ code: code }));
         req.body.code = code
-
-        let type = req.body.transporter
+        
+        let type = req.body.transportType
         let newCar = await new models[type](req.body).save()
+
+        existOwner.car = newCar.id
+        await existOwner.save()
         
         return APIResponse.Created(res, newCar);
     }

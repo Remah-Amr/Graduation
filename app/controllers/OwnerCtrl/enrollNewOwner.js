@@ -2,6 +2,7 @@ const $baseCtrl = require("../$baseCtrl");
 const models = require("../../models");
 const { APIResponse } = require("../../utils");
 const cloudinaryStorage = require("../../services/cloudinaryStorage");
+const bcrypt = require("bcryptjs");
 
 module.exports = $baseCtrl(
     [{ name: "photo", maxCount: 1 }],

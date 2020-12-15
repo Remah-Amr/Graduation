@@ -17,6 +17,11 @@ const schema = new mongoose.Schema(
                 ref: 'transaction'
             }
         ],
+        status:{
+            type: String,
+            enum:['start','end'],
+            default: 'start'
+        }
     },
     { timestamps: true }
 );
@@ -26,6 +31,7 @@ const response = (doc) => {
         driver: doc.driver,
         car: doc.car,
         transactions: doc.transactions,
+        status: doc.status,
         createdAt: doc.createdAt,
         updatedAt: doc.updatedAt,
     };
