@@ -1,0 +1,31 @@
+Admin :
+{
+    "phone": "+201092740203",
+    "password": "remah654312"
+}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIwLCJ1c2VyUm9sZSI6ImFkbWluIiwiaWF0IjoxNjA4MDA2NjAwfQ.WGn_QpFYit3AlBWGyEvy90p1FNFv8ElKqaopQB8KOtc
+
+
+
+Employee:
+{
+    "phone": "+201552619667",
+    "password": "remah654312"
+}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQyLCJ1c2VyUm9sZSI6ImVtcGxveWVlIiwiaWF0IjoxNjA4MDA3MjIxfQ.pIolPm4wazyncZzQZLUWNb-RfCURYnrQHn2W3DQTUxQ
+
+
+Owner:
+{
+    "phone": "+201022934694",
+    "password": "remah654312"
+}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQ0LCJ1c2VyUm9sZSI6Im93bmVyIiwiaWF0IjoxNjA4MDA4MzQxfQ.rafO-TfCt4CWShT1SSpvh0AIykkp8tMgWvucsjrKDvQ
+
+
+Driver :
+{
+    "phone": "+201021644228",
+    "password": "remah654312"
+}
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQ1LCJ1c2VyUm9sZSI6ImRyaXZlciIsImlhdCI6MTYwODAwODg5MH0.Lfhjv06j8xTscBObahOz3X3avm9hKAmcaurdZNmcsDw

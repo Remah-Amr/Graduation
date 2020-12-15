@@ -20,7 +20,13 @@ module.exports = $baseCtrl(
 
         req.me.wallet -= req.body.cost
         await req.me.save()
-        
+
+        // [TODO] send notification to current driver
+        if(car.current_driver){
+            let current_driver = await models._user.findById(car.current_driver)
+            current_driver.wallet += req.body.cost
+            await current_driver.save()            
+        }        
 
         // create new transactions
         const newTransaction = await new models.transaction({
