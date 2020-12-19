@@ -57,7 +57,6 @@ const schema = new mongoose.Schema(
     },
     wallet: {
       type: Number,
-      default:0
     },
     code: {
       type: String,
@@ -93,18 +92,16 @@ const response = (doc, options) => {
   return {
     id: doc.id,
     username: doc.username,
-    wallet: doc.wallet,
-    phone: doc.phone,
+    password: options.password && !doc.activated ? doc.password : undefined,
     gender: doc.gender,
     photo: doc.photo,
     email: doc.email,
     center: doc.center,  //to employee 
     car: doc.car,       // to driver  
-    owner: doc.owner,  //to driver
+    owner: doc.owner,  //to car
     country: doc.country,
     enabled: doc.enabled,
     birthdate: doc.birthdate,
-    current_journey: doc.current_journey,
     pushTokens: doc.pushTokens,
     role: doc.role,
     createdAt: doc.createdAt,

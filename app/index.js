@@ -6,9 +6,9 @@ const server = require('./server');
 
 (() => {
   console.info(
-    '📦 "Graduation "'.blue +
+    '  📦  "  GOUD "'.blue +
     ' API backend ⚡️ powered by '.green +
-    '" 7ottos & Remah "'.magenta
+    '"7ottos & Remah "'.magenta
   );
   database.connect(function () {
     console.info('📯 Mongodb is connected'.blue);

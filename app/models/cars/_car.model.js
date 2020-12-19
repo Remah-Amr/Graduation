@@ -5,12 +5,15 @@ const schema = new mongoose.Schema(
     {
         type: {
             type: String,
-            enum: ["bus", "private"],
+            enum: ["bus", "taxi"],
             required: true,
         },
         number: {
             type: String,
             required: true,
+        },
+        numberOfSeats: {
+            type: number,
         },
         photo: {
             type: String,
@@ -54,6 +57,7 @@ const response = (doc) => {
         current_journey: doc.current_journey,
         photo: doc.photo,
         number: doc.number,
+        numberOfSeats: doc.number,
         enabled: doc.enabled,
         transportType: doc.transportType,
         code: doc.code,

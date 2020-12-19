@@ -9,16 +9,16 @@ module.exports = $baseCtrl(
         if (car.current_driver) {
             return APIResponse.Forbidden(res, " Car Alredy In Use .");
         }
-        
-        
+
+
         let newjourney = await new models.journey({
             driver: req.me.id,
             car: req.me.car
         }).save()
-
+        // put current_journy under current driver
         req.me.current_journey = newjourney.id
         await req.me.save()
-        
+
         // this to used in transaction method to fech current journey 
         car.current_driver = req.me.id
         car.current_journey = newjourney._id
