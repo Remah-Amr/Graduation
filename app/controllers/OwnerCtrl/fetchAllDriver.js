@@ -9,13 +9,12 @@ module.exports = $baseCtrl(
     [{ name: "photo", maxCount: 1 }],
     cloudinaryStorage,
     async (req, res) => {
-
         let cars = await models.driver.fetchAll(
             req.allowPagination,
-            { owner: req.me._id },// were i can put this 
+            { owners: req.me._id },// were i can put this 
             {
                 ...req.queryOptions,
-                populate: 'car'
+                populate: 'cars'
             }
         )
         return APIResponse.Ok(res, cars)

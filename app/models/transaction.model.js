@@ -7,6 +7,10 @@ const schema = new mongoose.Schema(
             type: Number,
             ref: 'user'
         },
+        driver:{
+            type: Number,
+            ref: 'user'
+        },
         car: {
             type: Number,
             ref: 'car'
@@ -28,6 +32,7 @@ const response = (doc) => {
     return {
         id: doc.id,
         user: doc.user,
+        driver: doc.driver,
         car: doc.car,
         cost: doc.cost,
         seatNumber: doc.seatNumber,

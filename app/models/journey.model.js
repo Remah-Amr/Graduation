@@ -4,7 +4,6 @@ const $baseModel = require("./$baseModel");
 const schema = new mongoose.Schema(
     {
         seats: {},
-
         driver: {
             type: Number,
             ref: 'user'
@@ -34,6 +33,7 @@ const response = (doc) => {
         car: doc.car,
         transactions: doc.transactions,
         status: doc.status,
+        seats: doc.seats,
         createdAt: doc.createdAt,
         updatedAt: doc.updatedAt,
     };

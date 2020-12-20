@@ -2,6 +2,6 @@ const $baseCtrl = require('../$baseCtrl');
 const { APIResponse } = require('../../utils');
 const models = require('../../models')
 module.exports = $baseCtrl(async (req, res) => {
- let user = await models.journey.find().populate('transactions')
- return APIResponse.Ok(res,user)
+ let journey = await models.journey.findById(31)
+ return APIResponse.Ok(res,journey)
 });

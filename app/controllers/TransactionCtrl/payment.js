@@ -1,12 +1,12 @@
 const $baseCtrl = require("../$baseCtrl");
 const models = require("../../models");
 const { APIResponse } = require("../../utils");
+const _ = require('lodash')
 
 module.exports = $baseCtrl(
     async (req, res) => {
         if (
             req.body.code === undefined ||
-            // req.body.seatNumber === undefined ||
             req.body.cost === undefined
         ) {
             return APIResponse.BadRequest(res, "You have to fill all options .");
@@ -15,37 +15,49 @@ module.exports = $baseCtrl(
         const car = await models._car.findOne({ code: req.body.code })
         if (!car) return APIResponse.NotFound(res, 'No car with that code')
 
+        if(car.type === 'bus' && req.body.seatNumber === undefined)
+            return APIResponse.BadRequest(res,'You have to provide seatNumber')
+            
+        let numberOfSeats = req.body.seatNumber ? req.body.seatNumber.length : 1
+        let totalCost = req.body.cost * numberOfSeats
 
-
-        if (req.me.wallet < req.body.cost)
+        if (req.me.wallet < totalCost)
             return APIResponse.Forbidden(res, 'You dont have enough money , recharge your wallet')
-
-
-
-        req.me.wallet -= req.body.cost
-        await req.me.save()
-
-        // [TODO] send notification to current driver
-        if (car.current_driver) {
-            let current_driver = await models._user.findById(car.current_driver)
-            current_driver.wallet += req.body.cost
-            await current_driver.save()
-        }
-
+              
         // create new transactions
         const newTransaction = await new models.transaction({
             user: req.me.id,
             car: car.id,
-            cost: req.body.cost,
-            // seatNumber: req.body.seatNumber
+            cost: totalCost,
+            ...(req.body.seatNumber && { seatNumber: req.body.seatNumber }),
+            driver:car.current_driver
         }).save()
-
-        // push transaction in current journey 
-        if (car.current_journey) {
-            const journey = await models.journey.findById(car.current_journey)
-            journey.transactions.push(newTransaction._id)
-            await journey.save()
+        
+        let obj = {} 
+        const journey = await models.journey.findById(car.current_journey)
+        if(req.body.seatNumber){
+            if(journey.seats)
+                obj = {...journey.seats} 
+            for(let i = 0;i < req.body.seatNumber.length;i++){
+                let s = req.body.seatNumber[i]
+                if(obj[s] === undefined){
+                    obj[s] = 1
+                } else {
+                    obj[s] += 1
+                }
+            }
         }
+        journey.seats = obj
+        journey.transactions.push(newTransaction._id)
+        await journey.save()
+        
+        // [TODO] send notification to current driver
+        let current_driver = await models._user.findById(car.current_driver)
+        current_driver.wallet += totalCost
+        await current_driver.save()
+        
+        req.me.wallet -= totalCost
+        await req.me.save()
 
         return APIResponse.Created(res, newTransaction);
     }

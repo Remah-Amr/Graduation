@@ -13,7 +13,7 @@ const schema = new mongoose.Schema(
             required: true,
         },
         numberOfSeats: {
-            type: Number,
+            type: Number
         },
         photo: {
             type: String,

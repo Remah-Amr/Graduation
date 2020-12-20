@@ -12,6 +12,6 @@ module.exports = {
   journey: require("./journey.model"),
   transaction: require("./transaction.model"),
   notification: require('./notifications/_notification.model'),
-  exchangeTransaction: require('./Exchange and Transfer/exchangeTransaction.model'),
-  balanceTransfer: require('./Exchange and Transfer/balanceTransfer.model'),
+  balanceTransfer: require('./balanceTransfer.model'),
+  exchangeTransaction: require('./exchangeTransaction.model')
 };

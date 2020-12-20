@@ -17,15 +17,17 @@ module.exports = $baseCtrl(
             return APIResponse.Forbidden(res, 'You dont have enough money on your wallet ')
 
         req.me.wallet -= req.body.cost
+        user.wallet += req.body.cost
+        await req.me.save()
         await user.save()
 
         // create new transactions
         const newBalanceTransfer = await new models.balanceTransfer({
-            sender: req.me.id,//owner or driver or user
-            receiver: user._id,//owner or driver or user
+            sender: req.me.id,
+            receiver: user._id,
             cost: req.body.cost,
         }).save()
 
-        return APIResponse.Created(res, newexchangeTransaction);
+        return APIResponse.Created(res, newBalanceTransfer);
     }
 );

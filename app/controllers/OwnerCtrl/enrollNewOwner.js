@@ -30,6 +30,13 @@ module.exports = $baseCtrl(
         if (existPhone) {
             return APIResponse.BadRequest(res, " phone Already in use .");
         }
+
+        // Check if nationalId Already Exist
+        let existNationalId = await models._user.findOne({ nationalId: req.body.nationalId });
+        if (existNationalId) {
+            return APIResponse.BadRequest(res, " nationalId Already in use .");
+        }
+
         // make owner enabled by default
         req.body.enabled = true
 

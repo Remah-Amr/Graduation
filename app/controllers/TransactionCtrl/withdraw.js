@@ -20,13 +20,7 @@ module.exports = $baseCtrl(
         // ensure that user id owner  on that car
         if (user.role === 'owner') {
             if (car.owner !== user._id) {
-                return APIResponse.BadRequest(res, "no car with this owner.");
-            }
-        }
-        // ensure that user id driver  on that car
-        if (user.role === 'driver') {
-            if (car._id !== user.car) {
-                return APIResponse.BadRequest(res, "no car with this driver.");
+                return APIResponse.Forbidden(res, "no car with this owner.");
             }
         }
 
@@ -38,7 +32,7 @@ module.exports = $baseCtrl(
 
         // create new transactions
         const newexchangeTransaction = await new models.exchangeTransaction({
-            user: user._id,//owner or driver 
+            user: user._id,
             car: car._id,
             employee: req.me.id,
             center: req.me.center,

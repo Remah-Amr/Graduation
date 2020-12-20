@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const $baseModel = require("../$baseModel");
+const $baseModel = require("./$baseModel");
 
 const schema = new mongoose.Schema(
     {
@@ -29,6 +29,6 @@ const response = (doc) => {
     };
 };
 
-module.exports = $baseModel("tbalanceTransfer", schema, {
+module.exports = $baseModel("balanceTransfer", schema, {
     responseFunc: response
 });

@@ -1,23 +1,28 @@
 const $baseCtrl = require("../$baseCtrl");
 const models = require("../../models");
 const { APIResponse } = require("../../utils");
-const bcrypt = require("bcryptjs");
-const cloudinaryStorage = require("../../services/cloudinaryStorage");
 
 
 module.exports = $baseCtrl(
-    [{ name: "photo", maxCount: 1 }],
-    cloudinaryStorage,
     async (req, res) => {
+        const id = parseInt(req.params.carId)
+        if(isNaN(id)) return APIResponse.BadRequest(res)
 
-        let cars = await models.transaction.fetchAll(
+        const car = await models._car.findById(id)
+        if(!car) return APIResponse.NotFound(res,'No car with that id')
+
+        if(car.owner !== req.me.id)
+            return APIResponse.Forbidden(res,'You dont allow to view these transactions')
+        // here add filter with driver 
+
+        let transactions = await models.transaction.fetchAll(
             req.allowPagination,
-            { car: req.params.carId },// were i can put this 
+            { car: id },
             {
                 ...req.queryOptions,
-                populate: 'car'
+                populate: 'driver'
             }
         )
-        return APIResponse.Ok(res, cars)
+        return APIResponse.Ok(res, transactions)
     }
 );

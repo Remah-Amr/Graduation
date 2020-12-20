@@ -10,10 +10,10 @@ const schema = new mongoose.Schema({
         type: Number,
         ref: 'car'
     },
-    owner: {
+    owners: [{
         type: Number,
         ref: 'owner'
-    },
+    }],
     cars: [
         {
             type: Number,

@@ -40,7 +40,7 @@ module.exports = $baseCtrl(
         // new update=======
         req.body.cars = [carId]
         // save driver under car owner 
-        req.body.owner = existCar.owner
+        req.body.owners = [existCar.owner]
 
 
         // make driver enabled by defult

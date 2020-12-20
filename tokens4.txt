@@ -29,3 +29,22 @@ Driver :
     "password": "remah654312"
 }
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQ1LCJ1c2VyUm9sZSI6ImRyaXZlciIsImlhdCI6MTYwODAwODg5MH0.Lfhjv06j8xTscBObahOz3X3avm9hKAmcaurdZNmcsDw
+
+
+Owner 74:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjc0LCJ1c2VyUm9sZSI6Im93bmVyIiwiaWF0IjoxNjA4NDczODY4fQ.C7lzsDkymNZF7rjpbbjI-8QYmpLBDX8JoV2W75W2Ei8
+
+# rate : Remah (fetch & create)
+# remove whole db except users (make undefined in owner & driver)
+
+******************************************
+
+Finished :
+inform zeyad with changes attributes (fetch All drivers & fetch All owners ) => cars instead of car , owners instead of car
+Assign Exist Driver To Car
+Add numberOfSeats when add Car
+Driver Owner Trips Folder
+Add nationalId when add owner
+Transfer & withdraw folder
+fetch My drivers in owner folder
+Fetch My Car Transactions in owner folder with queryFilter of driver
