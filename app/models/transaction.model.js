@@ -14,9 +14,11 @@ const schema = new mongoose.Schema(
         cost: {
             type: Number,
         },
-        seatNumber: {
-            type: Number
-        }
+        seatNumber: [
+            {
+                type: Number
+            }
+        ]
 
     },
     { timestamps: true }
