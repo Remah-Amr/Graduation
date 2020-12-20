@@ -22,7 +22,10 @@ const schema = new mongoose.Schema({
             ref: 'car'
         }
     ],
-
+    rating: {
+        type: Number,
+        default: 0,
+      }
 
 }, { discriminatorKey: "role" });
 module.exports = UserModel.discriminator("owner", schema);

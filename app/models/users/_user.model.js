@@ -104,6 +104,7 @@ const response = (doc, options) => {
     owners: doc.owners,  //to driver
     owner: doc.owner, // to car
     nationalId: doc.nationalId, // to owner
+    rating: doc.rating, // owner & driver
     wallet: doc.wallet,
     country: doc.country,
     enabled: doc.enabled,

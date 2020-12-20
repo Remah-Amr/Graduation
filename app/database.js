@@ -13,7 +13,6 @@ module.exports = {
         cb();
       })
       .catch(function (err) {
-        console.log('here')
         console.error(err.message.red);
         process.exit(1);
       });

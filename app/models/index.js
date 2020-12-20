@@ -13,5 +13,6 @@ module.exports = {
   transaction: require("./transaction.model"),
   notification: require('./notifications/_notification.model'),
   balanceTransfer: require('./balanceTransfer.model'),
-  exchangeTransaction: require('./exchangeTransaction.model')
+  exchangeTransaction: require('./exchangeTransaction.model'),
+  rate: require('./rate.model')
 };
