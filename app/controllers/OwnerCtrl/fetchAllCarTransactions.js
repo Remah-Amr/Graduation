@@ -12,10 +12,10 @@ module.exports = $baseCtrl(
 
         let cars = await models.transaction.fetchAll(
             req.allowPagination,
-            { owner: req.me.id },// were i can put this 
+            { car: req.params.carId },// were i can put this 
             {
                 ...req.queryOptions,
-                populate: 'owner'
+                populate: 'car'
             }
         )
         return APIResponse.Ok(res, cars)

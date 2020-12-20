@@ -3,6 +3,8 @@ const $baseModel = require("./$baseModel");
 
 const schema = new mongoose.Schema(
     {
+        seats: {},
+
         driver: {
             type: Number,
             ref: 'user'
@@ -17,9 +19,9 @@ const schema = new mongoose.Schema(
                 ref: 'transaction'
             }
         ],
-        status:{
+        status: {
             type: String,
-            enum:['start','end'],
+            enum: ['start', 'end'],
             default: 'start'
         }
     },

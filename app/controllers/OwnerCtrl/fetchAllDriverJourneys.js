@@ -13,10 +13,10 @@ module.exports = $baseCtrl(
 
         let cars = await models.journey.fetchAll(
             req.allowPagination,
-            { user: req.body.driverId },// were i can put this 
+            { user: req.params.driverId },// were i can put this 
             {
                 ...req.queryOptions,
-                populate: 'car'
+                populate: 'driver'
             }
         )
         return APIResponse.Ok(res, cars)

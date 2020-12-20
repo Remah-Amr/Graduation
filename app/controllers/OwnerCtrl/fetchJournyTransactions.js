@@ -9,15 +9,8 @@ module.exports = $baseCtrl(
     [{ name: "photo", maxCount: 1 }],
     cloudinaryStorage,
     async (req, res) => {
+        let journy = await models.journey.findById({ _id: req.params.journyId }).populate('transaction')
 
-        let cars = await models.driver.fetchAll(
-            req.allowPagination,
-            { owner: req.me._id },// were i can put this 
-            {
-                ...req.queryOptions,
-                populate: 'car'
-            }
-        )
-        return APIResponse.Ok(res, cars)
+        return APIResponse.Ok(res, journy)
     }
 );

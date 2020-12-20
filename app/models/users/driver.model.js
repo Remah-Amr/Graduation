@@ -6,7 +6,7 @@ const schema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    car: {
+    current_car: {
         type: Number,
         ref: 'car'
     },
@@ -14,8 +14,14 @@ const schema = new mongoose.Schema({
         type: Number,
         ref: 'owner'
     },
-    current_journey:{
-        type:Number,
+    cars: [
+        {
+            type: Number,
+            ref: 'car'
+        }
+    ],
+    current_journey: {
+        type: Number,
         ref: 'journey'
     }
 }, { discriminatorKey: "role" });

@@ -31,14 +31,14 @@ module.exports = $baseCtrl(
         }
         // Check if Car  Exist
         const carId = parseInt(req.body.car)
-        if(isNaN(carId)) return APIResponse.BadRequest(res)
+        if (isNaN(carId)) return APIResponse.BadRequest(res)
         let existCar = await models._car.findById(carId);
         if (!existCar) {
             return APIResponse.BadRequest(res, " car not found .");
         }
 
-
-        req.body.car = carId
+        // new update=======
+        req.body.cars = [carId]
         // save driver under car owner 
         req.body.owner = existCar.owner
 
@@ -57,8 +57,9 @@ module.exports = $baseCtrl(
         }
 
 
-        // save owner to db  role = driver
+        // save owner to db  role = driver   
         const newUser = await new models.driver(req.body).save();
+
 
         return APIResponse.Created(res, newUser);
     }

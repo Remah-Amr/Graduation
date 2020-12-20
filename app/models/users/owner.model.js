@@ -4,7 +4,7 @@ nationalIdRule = /(2|3)[0-9][0-9][0-1][0-9][0-3][0-9](01|02|03|04|11|12|13|14|15
 
 
 const schema = new mongoose.Schema({
-    car: {
+    current_car: {//[]
         type: Number,
         ref: 'car'
     },
@@ -19,6 +19,12 @@ const schema = new mongoose.Schema({
         index: true,
         // sparse: true,
     },
+    cars: [
+        {
+            type: Number,
+            ref: 'car'
+        }
+    ],
 
 
 }, { discriminatorKey: "role" });

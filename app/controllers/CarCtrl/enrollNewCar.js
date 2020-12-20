@@ -29,8 +29,8 @@ module.exports = $baseCtrl(
 
         let type = req.body.transportType
         let newCar = await new models[type](req.body).save()
-
-        existOwner.car = newCar.id
+        // new updated data =======
+        existOwner.cars.push(newCar._id)
         await existOwner.save()
 
         return APIResponse.Created(res, newCar);

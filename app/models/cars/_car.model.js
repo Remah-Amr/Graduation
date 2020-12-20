@@ -13,7 +13,7 @@ const schema = new mongoose.Schema(
             required: true,
         },
         numberOfSeats: {
-            type: number,
+            type: Number,
         },
         photo: {
             type: String,
@@ -57,7 +57,7 @@ const response = (doc) => {
         current_journey: doc.current_journey,
         photo: doc.photo,
         number: doc.number,
-        numberOfSeats: doc.number,
+        numberOfSeats: doc.numberOfSeats,
         enabled: doc.enabled,
         transportType: doc.transportType,
         code: doc.code,

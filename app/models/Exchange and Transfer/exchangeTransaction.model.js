@@ -40,6 +40,6 @@ const response = (doc) => {
     };
 };
 
-module.exports = $baseModel("transaction", schema, {
+module.exports = $baseModel("exchangeTransaction", schema, {
     responseFunc: response
 });
