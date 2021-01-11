@@ -11,8 +11,10 @@ module.exports = {
   center: require("./centers.model"),
   journey: require("./journey.model"),
   transaction: require("./transaction.model"),
-  notification: require('./notifications/_notification.model'),
-  balanceTransfer: require('./balanceTransfer.model'),
-  exchangeTransaction: require('./exchangeTransaction.model'),
-  rate: require('./rate.model')
+  notification: require("./notifications/_notification.model"),
+  balanceTransfer: require("./balanceTransfer.model"),
+  exchangeTransaction: require("./exchangeTransaction.model"),
+  rate: require("./rate.model"),
+  conversation: require("./conversation.model"),
+  message: require("./message.model"),
 };
