@@ -64,9 +64,11 @@ module.exports = {
         await conversation.save();
         // emit message
         chatNamespace.to(`user ${data.to}`).emit("new message", {
+          conversation,
           message: data,
         });
         chatNamespace.to(`user ${userId}`).emit("new message", {
+          conversation,
           test: "from me",
           message: data,
         });
