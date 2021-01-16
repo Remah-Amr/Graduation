@@ -34,7 +34,7 @@ module.exports = $baseCtrl(
         console.log('Code Sent Successfully .')
     } catch (error) {
         console.log(error);
-        return APIResponse.ServerError(500, error);
+        return APIResponse.ServerError(res, error);
     }
 
     // Encrypt Password
