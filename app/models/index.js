@@ -8,6 +8,7 @@ module.exports = {
   _car: require("./cars/_car.model"),
   public: require("./cars/public.model"),
   travel: require("./cars/travel.model"),
+  governorate: require("./cars/governorate.model"),
   center: require("./centers.model"),
   journey: require("./journey.model"),
   transaction: require("./transaction.model"),
