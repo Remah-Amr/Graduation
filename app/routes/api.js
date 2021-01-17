@@ -17,7 +17,6 @@ apiRouter.post("/login-phone", ctrls.AuthCtrl.loginPhone);
 apiRouter.post("/signup", ctrls.AuthCtrl.signupEmail);
 apiRouter.post("/resend", ctrls.AuthCtrl.SendForgetCodeEmail);
 apiRouter.post("/reset-password", ctrls.AuthCtrl.resetPasswordByEmail);
-apiRouter.post("/governorate/addNew", ctrls.GovernorateCtrl.addNew);
 apiRouter.post(
   "/login-google",
   passport.authenticate("googleToken1", { session: false }),

@@ -59,6 +59,8 @@ const response = (doc) => {
         number: doc.number,
         numberOfSeats: doc.numberOfSeats,
         enabled: doc.enabled,
+        from: doc.from,
+        to: doc.to,
         transportType: doc.transportType,
         code: doc.code,
         qrCode: doc.qrCode,

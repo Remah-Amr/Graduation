@@ -3,11 +3,15 @@ const CarModel = require("./_car.model");
 
 const schema = new mongoose.Schema(
     {
-        travelLine: {
-            from: { type: String },
-            to: { type: String },
-            // from to Ex => from  arish to alex
+
+        from: {
+            type: Number,
+            ref: "Governorate"
         },
+        to: {
+            type: Number,
+            ref: "Governorate"
+        }
     },
     { discriminatorKey: "transportType" }
 );

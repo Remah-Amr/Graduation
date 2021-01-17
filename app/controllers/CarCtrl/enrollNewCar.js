@@ -28,10 +28,27 @@ module.exports = $baseCtrl(
         req.body.code = code
 
         let type = req.body.transportType
+        if (req.body.transportType === "travel") {
+            // ============================
+            if (req.body.from === undefined || req.body.to === undefined) {
+                return APIResponse.BadRequest(res, "You have to fill all options");
+            }
+            const govFromId = parseInt(req.body.from)
+            const govToId = parseInt(req.body.to)
+            if (isNaN(govFromId) || isNaN(govToId)) return APIResponse.BadRequest(res)
+            let existGovFrom = await models.governorate.findById(govFromId);
+            let existGovTo = await models.governorate.findById(govToId);
+            console.log(existGovTo)
+            console.log(existGovFrom)
+            if (!existGovFrom || !existGovTo) {
+                return APIResponse.BadRequest(res, " governorte not found .");
+            }
+        }
         let newCar = await new models[type](req.body).save()
         // new updated data =======
         existOwner.cars.push(newCar._id)
         await existOwner.save()
+
 
         return APIResponse.Created(res, newCar);
     }
