@@ -8,7 +8,7 @@ const passport = require("passport");
 let apiRouter = express.Router();
 
 
-
+// apiRouter.post("/friend/trastable", ctrls.FriendCtrl.addTrastable);
 apiRouter.post("/verify-reset", ctrls.AuthCtrl.resetPasswordByPhone);
 apiRouter.post("/forget", ctrls.AuthCtrl.sendForgetSMSPhone);
 apiRouter.post("/signup-phone", ctrls.AuthCtrl.signupPhone);

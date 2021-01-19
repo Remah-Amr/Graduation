@@ -55,9 +55,9 @@ const schema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    wallet:{
+    wallet: {
       type: Number,
-      default:0
+      default: 0
     },
     code: {
       type: String,
@@ -69,6 +69,9 @@ const schema = new mongoose.Schema(
     birthdate: {
       type: Date,
     },
+
+    trastable: [{ type: Number, ref: 'trastable' }],
+
     pushTokens: [
       new mongoose.Schema(
         {
@@ -97,6 +100,7 @@ const response = (doc, options) => {
     photo: doc.photo,
     phone: doc.phone,
     email: doc.email,
+    trastable: doc.trastable,
     center: doc.center,  //to employee 
     current_car: doc.current_car,       // to driver  
     current_journey: doc.current_journey,

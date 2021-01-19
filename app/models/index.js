@@ -4,6 +4,7 @@ module.exports = {
   driver: require("./users/driver.model"),
   owner: require("./users/owner.model"),
   employee: require("./users/employee.model"),
+  trastable: require("./trastable.model"),
   client: require("./users/client.model"),
   _car: require("./cars/_car.model"),
   public: require("./cars/public.model"),
