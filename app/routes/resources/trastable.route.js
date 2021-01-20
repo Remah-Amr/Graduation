@@ -1,16 +1,21 @@
 const express = require("express");
 const ctrls = require("../../controllers");
-const policies = require('../../policies')
+const policies = require("../../policies");
 
 let router = express.Router();
 
-router.post("/friend/trastable", ctrls.TrastableCtrl.addTrastable);
-// router.get("/allTrast", ctrls.TrastableCtrl.fetchAll);
-router.get("/my/trastable", ctrls.TrastableCtrl.fetchAllTrastable);
-router.get("/my/trastable/request", ctrls.TrastableCtrl.fetchAllTrastReq);
-router.put("/accept/trastable/:trastId", ctrls.TrastableCtrl.acceptTrastable);
-router.put("/cancel/trastable/:trastId", ctrls.TrastableCtrl.cancelTrastableStatus);
-router.put("/my/trastable/remove/:trastId", ctrls.TrastableCtrl.removeTrastable);
-// router.get("/cars/:id/rate", ctrls.TrastableCtrl.fetchAllPagination);
+router.post("/trustable-request", ctrls.TrastableCtrl.addTrastable);
+
+router.patch("/trustable-request/:id", ctrls.TrastableCtrl.updateStatus);
+
+router.get(
+  "/requester/trustable-requests",
+  ctrls.TrastableCtrl.fetchTrustableUsers
+);
+
+router.get(
+  "/recipient/trustable-requests",
+  ctrls.TrastableCtrl.fetchTrustableUsers
+);
 
 module.exports = router;

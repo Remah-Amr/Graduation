@@ -57,7 +57,7 @@ const schema = new mongoose.Schema(
     },
     wallet: {
       type: Number,
-      default: 0
+      default: 0,
     },
     code: {
       type: String,
@@ -69,9 +69,7 @@ const schema = new mongoose.Schema(
     birthdate: {
       type: Date,
     },
-
-    trastable: [{ type: Number, ref: 'trastable' }],
-
+    trustable: [{ type: Number, ref: "trustable" }],
     pushTokens: [
       new mongoose.Schema(
         {
@@ -100,12 +98,12 @@ const response = (doc, options) => {
     photo: doc.photo,
     phone: doc.phone,
     email: doc.email,
-    trastable: doc.trastable,
-    center: doc.center,  //to employee 
-    current_car: doc.current_car,       // to driver  
+    trustable: doc.trustable,
+    center: doc.center, //to employee
+    current_car: doc.current_car, // to driver
     current_journey: doc.current_journey,
-    cars: doc.cars,       // to driver  
-    owners: doc.owners,  //to driver
+    cars: doc.cars, // to driver
+    owners: doc.owners, //to driver
     owner: doc.owner, // to car
     nationalId: doc.nationalId, // to owner
     rating: doc.rating, // owner & driver
