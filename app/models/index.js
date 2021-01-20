@@ -5,6 +5,7 @@ module.exports = {
   owner: require("./users/owner.model"),
   employee: require("./users/employee.model"),
   trustable: require("./trustable.model"),
+  follow: require("./follow.model"),
   client: require("./users/client.model"),
   _car: require("./cars/_car.model"),
   public: require("./cars/public.model"),
