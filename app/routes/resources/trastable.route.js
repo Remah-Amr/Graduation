@@ -8,7 +8,8 @@ router.post("/friend/trastable", ctrls.TrastableCtrl.addTrastable);
 // router.get("/allTrast", ctrls.TrastableCtrl.fetchAll);
 router.get("/my/trastable", ctrls.TrastableCtrl.fetchAllTrastable);
 router.get("/my/trastable/request", ctrls.TrastableCtrl.fetchAllTrastReq);
-router.put("/my/trastable/:trastId", ctrls.TrastableCtrl.updateTrastableStatus);
+router.put("/accept/trastable/:trastId", ctrls.TrastableCtrl.acceptTrastable);
+router.put("/cancel/trastable/:trastId", ctrls.TrastableCtrl.cancelTrastableStatus);
 router.put("/my/trastable/remove/:trastId", ctrls.TrastableCtrl.removeTrastable);
 // router.get("/cars/:id/rate", ctrls.TrastableCtrl.fetchAllPagination);
 
