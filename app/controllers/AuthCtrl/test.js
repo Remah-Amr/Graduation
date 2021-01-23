@@ -1,18 +1,24 @@
-const $baseCtrl = require('../$baseCtrl');
-const { APIResponse } = require('../../utils');
-const models = require('../../models')
-module.exports = $baseCtrl(async (req, res) => {
- let users = await models._user.find()
- for(let i = 0;i < users.length;i++){
-     if(users[i].role === 'admin' || users[i].role === 'employee' || users[i].role === 'client')
-        continue
-    if(users[i].role === 'driver'){
-        await users[i].set({current_journey:undefined,current_car: undefined,owners:[],cars:[]}).save()
-    }
-    if(users[i].role === 'owner'){
-        await users[i].set({current_journey:undefined,current_car: undefined,cars:[]}).save()
-    }
- }
+const $baseCtrl = require("../$baseCtrl");
+const { APIResponse } = require("../../utils");
+const models = require("../../models");
+const _ = require("lodash");
 
- return APIResponse.Ok(res,'Ok')
+module.exports = $baseCtrl(async (req, res) => {
+  let x = {
+    plans: {
+      Basic: 10,
+      Premium: 20,
+      PremiumPlus: 30,
+    },
+  };
+  let y = {
+    plansHours: {
+      Basic: 100,
+      Premium: 200,
+      PremiumPlus: 300,
+    },
+  };
+  let obj = {};
+  obj.name = x[Object.keys(x)[0]];
+  return APIResponse.Ok(res, obj);
 });
