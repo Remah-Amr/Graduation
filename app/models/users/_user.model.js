@@ -102,7 +102,7 @@ const schema = new mongoose.Schema(
 const response = (doc, options) => {
   return {
     id: doc.id,
-    lastSeen: doc.lastSeen,
+    // lastSeen: doc.lastSeen,
     username: doc.username,
     gender: doc.gender,
     photo: doc.photo,
