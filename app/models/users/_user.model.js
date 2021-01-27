@@ -86,6 +86,15 @@ const schema = new mongoose.Schema(
         { _id: false }
       ),
     ],
+    lastSeen: {
+      coordinates: {
+        type: [Number], // [0 => longitude, 1 => latitude]
+        index: "2d",
+      },
+      time: {
+        type: Date,
+      },
+    },
   },
   { timestamps: true, discriminatorKey: "role" }
 );
@@ -93,6 +102,7 @@ const schema = new mongoose.Schema(
 const response = (doc, options) => {
   return {
     id: doc.id,
+    lastSeen: doc.lastSeen,
     username: doc.username,
     gender: doc.gender,
     photo: doc.photo,
