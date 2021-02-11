@@ -28,6 +28,7 @@ module.exports = {
       socket.on("follow", async function (data) {
         if (!data.coordinates) return;
         const { userId, userRole } = socket.decoded_token;
+        console.log(userId);
         const orders = await models.follow.find({
           sender: userId,
           createdAt: {
