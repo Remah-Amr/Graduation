@@ -9,6 +9,7 @@
     "lint": "eslint app"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.10.0",
@@ -16,6 +17,7 @@
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
     "dotenv": "^6.2.0",
+    "easysoap": "^2.2.0",
     "express": "^4.16.2",
     "express-bearer-token": "^2.2.0",
     "express-validator": "^4.3.0",
@@ -57,9 +59,14 @@
     "randexp": "^0.5.3",
     "socket.io": "^2.0.4",
     "socketio-jwt": "^4.6.2",
+    "strong-soap": "^3.0.1",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4",
-    "twilio": "^3.51.0"
+    "twilio": "^3.51.0",
+    "uninstall": "0.0.0",
+    "xml-parse-from-string": "^1.0.1",
+    "xml2js": "^0.4.23",
+    "xml2json": "^0.12.0"
   },
   "devDependencies": {
     "eslint": "^5.11.0",
