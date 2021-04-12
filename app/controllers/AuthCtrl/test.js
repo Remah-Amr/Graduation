@@ -2,7 +2,9 @@ const $baseCtrl = require("../$baseCtrl");
 const { APIResponse } = require("../../utils");
 const axios = require("axios");
 const parser = require("xml2json");
-module.exports = $baseCtrl(async (req, res) => {});
+module.exports = $baseCtrl(async (req, res) => {
+  console.log("remah");
+});
 
 /*
 const $baseCtrl = require("../$baseCtrl");
