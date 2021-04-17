@@ -6,8 +6,7 @@ module.exports = {
 
     return mongoose
       .connect(
-        "mongodb://localhost:27017/exampleDb",
-        // "mongodb+srv://Admin:Admin123456@ptos.77jsw.mongodb.net/PTOS?retryWrites=true&w=majority",
+        process.env.MONGODB_URI,
         { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false }
       )
       .then(function () {
