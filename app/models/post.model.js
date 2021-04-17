@@ -43,6 +43,10 @@ const postSchema = new mongoose.Schema(
             type: Boolean,
             default: false
         },
+        headerOfShare: {// if user wqant to add some content about shared post 
+            type: String,
+        },
+
         sharedPost: {
             type: Number,
             ref: 'post'
@@ -57,40 +61,17 @@ postSchema.virtual("kind").get(function () {
     else if (this.depth === 2) return "reply";
     return null;
 });
-
-postSchema.set("toJSON", {
-    transform: function (doc) {
-        return {
-            id: doc.id,
-            course: doc.course,
-            kind: doc.kind,
-            author: doc.author,
-            images: doc.images,
-            content: doc.content,
-            reactions: doc.reactions,
-            isShared: doc.isShared,
-            sharedPost: doc.sharedPost,
-            metadata: {
-                reactions: doc.reactions.length,
-                comments: doc.comments.length
-            },
-            createdAt: doc.createdAt,
-            updatedAt: doc.updatedAt,
-        };
-    },
-});
-
 const response = (doc) => {
     return {
         id: doc.id,
-        course: doc.course,
         kind: doc.kind,
         author: doc.author,
         images: doc.images,
         content: doc.content,
-        reactions: doc.reactions,
         isShared: doc.isShared,
         sharedPost: doc.sharedPost,
+        headerOfShare: doc.headerOfShare,
+        parents: doc.parents,
         metadata: {
             reactions: doc.reactions.length,
             comments: doc.comments.length
