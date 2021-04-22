@@ -2,7 +2,7 @@ const $baseCtrl = require("../$baseCtrl");
 const models = require("../../models");
 const { APIResponse } = require("../../utils");
 const bcrypt = require("bcryptjs");
-
+const _ = require("lodash");
 
 module.exports = $baseCtrl(
     async (req, res) => {
@@ -17,6 +17,13 @@ module.exports = $baseCtrl(
                 populate: [{ path: 'author', select: "username photo" }, 'sharedPost']
             }
         )
+
+        let all = posts.docs
+        for (let i = 0; i < all.length; i++) {
+            all[i] = all[i].toJSON({ authUser: req.me.id })
+        }
+        posts.docs = all
+        console.log(all)
         return APIResponse.Ok(res, posts)
     }
 );

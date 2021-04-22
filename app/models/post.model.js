@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const $baseSchema = require("./$baseSchema");
 const $baseModel = require("./$baseModel");
+const _ = require("lodash");
 
 
 
@@ -61,7 +62,17 @@ postSchema.virtual("kind").get(function () {
     else if (this.depth === 2) return "reply";
     return null;
 });
-const response = (doc) => {
+const response = (doc, options) => {
+
+    if (options) {
+        if (options.authUser) {
+            console.log('here' + options.authUser)
+            let key = _.findKey(doc.reactions, { user: options.authUser })
+            console.log(key)
+            doc.flavor = key !== undefined ? doc.reactions[key].flavor : null
+
+        }
+    }
     return {
         id: doc.id,
         kind: doc.kind,
@@ -72,6 +83,7 @@ const response = (doc) => {
         sharedPost: doc.sharedPost,
         headerOfShare: doc.headerOfShare,
         parents: doc.parents,
+        flavor: doc.flavor,
         metadata: {
             reactions: doc.reactions.length,
             comments: doc.comments.length
@@ -85,10 +97,6 @@ module.exports = $baseModel("post", postSchema, {
     responseFunc: response,
 });
 
-
-// module.exports = $baseModel("message", schema, {
-//     responseFunc: response,
-//   });
 
 // reaction subdocument
 function reactionSchema() {
