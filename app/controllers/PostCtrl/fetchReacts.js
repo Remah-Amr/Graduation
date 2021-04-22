@@ -13,6 +13,8 @@ module.exports = $baseCtrl(
         let post = await models.post.findById(id).
             populate({ path: 'reactions.user', select: "username photo" })
 
+        if (!post) return APIResponse.NotFound(res);
+
         let postReactions = post.reactions
 
 
