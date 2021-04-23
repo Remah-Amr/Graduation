@@ -30,7 +30,7 @@ const postSchema = new mongoose.Schema(
         images: [{ type: String }],
         content: {
             type: String,
-            required: true,
+            // required: true,
         },
         reactions: [reactionSchema()],
 
