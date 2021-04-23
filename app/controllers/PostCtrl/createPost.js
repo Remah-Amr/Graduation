@@ -27,7 +27,7 @@ module.exports = $baseCtrl(
             ],
             author: user.id,
             images: photos,
-            content: req.body.content,
+            content: !req.body.content ? null : req.body.content,
             reactions: [],
         })
             .save();
