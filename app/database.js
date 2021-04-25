@@ -6,7 +6,7 @@ module.exports = {
 
     return mongoose
       .connect(
-        process.env.MONGODB_URI,
+        process.env.LOCALMONGO,
         { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false }
       )
       .then(function () {

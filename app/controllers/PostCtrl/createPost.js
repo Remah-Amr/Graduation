@@ -12,6 +12,7 @@ module.exports = $baseCtrl(
         let type = req.params.postId ? 'comment' : req.params.commentId ? 'reply' : 'post'
         let idFetch = type === 'comment' ? req.params.postId : type === 'reply' ? req.params.commentId : null
         let post = await models.post.findById(idFetch)
+        if (!post) return APIResponse.NotFound(res);
         let photos = []
         if (req.files && req.files["photo"]) {
             for (let i = 0; i < req.files["photo"].length; i++) {
