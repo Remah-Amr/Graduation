@@ -66,9 +66,7 @@ const response = (doc, options) => {
 
     if (options) {
         if (options.authUser) {
-            console.log('here' + options.authUser)
             let key = _.findKey(doc.reactions, { user: options.authUser })
-            console.log(key)
             doc.flavor = key !== undefined ? doc.reactions[key].flavor : null
 
         }
@@ -84,6 +82,7 @@ const response = (doc, options) => {
         headerOfShare: doc.headerOfShare,
         parents: doc.parents,
         flavor: doc.flavor,
+        directParent: doc.directParent,
         metadata: {
             reactions: doc.reactions.length,
             comments: doc.comments.length

@@ -8,11 +8,15 @@ module.exports = $baseCtrl(
     async (req, res) => {
         // await models.post.deleteMany()
         const user = req.me
+        let post
         // fetch type of creation 
         let type = req.params.postId ? 'comment' : req.params.commentId ? 'reply' : 'post'
         let idFetch = type === 'comment' ? req.params.postId : type === 'reply' ? req.params.commentId : null
-        let post = await models.post.findById(idFetch)
-        if (!post) return APIResponse.NotFound(res);
+        if (type !== 'post') {
+            post = await models.post.findById(idFetch)
+            if (!post) return APIResponse.NotFound(res);
+        }
+
         let photos = []
         if (req.files && req.files["photo"]) {
             for (let i = 0; i < req.files["photo"].length; i++) {
