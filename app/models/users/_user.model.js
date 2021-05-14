@@ -155,6 +155,40 @@ schema.methods.sendNotification = async function (message) {
   if (changed) await this.save();
 };
 
+
+schema.pre('save', async function (next) {
+  const user = this;
+
+  let nullableFields = ['phone', 'email'];
+  for (let i = 0; i < nullableFields.length; i++) {
+    if (user.isModified(nullableFields[i])) {
+      const value = user[nullableFields[i]];
+      if (value === '' || value === null) user[nullableFields[i]] = undefined;
+    }
+  }
+
+  let uniqueFields = ['email', 'phone'];
+  for (let i = 0; i < uniqueFields.length; i++) {
+    if (user.isModified(uniqueFields[i])) {
+      // be true if was undefined then set value to it , be false if same value set to it
+      let value = user[uniqueFields[i]];
+      if (value === undefined) continue;
+      let filter = {};
+      filter[uniqueFields[i]] = value;
+      let count = await mongoose.model('user').countDocuments(filter);
+      if (count) {
+        let error = new mongoose.Error.ValidationError(user);
+        error.errors[uniqueFields[i]] = {
+          message: `(${value}) is not a unique value`,
+        };
+        throw error;
+      }
+    }
+  }
+  return next();
+});
+
+
 schema.statics.generateRandomUsername = async function () {
   let username;
   do {
