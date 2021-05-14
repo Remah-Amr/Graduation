@@ -21,4 +21,5 @@ module.exports = {
   rate: require("./rate.model"),
   conversation: require("./conversation.model"),
   message: require("./message.model"),
+  weather: require("./weather.model"),
 };

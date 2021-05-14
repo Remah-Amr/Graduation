@@ -1,14 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 module.exports = {
-  connect: cb => {
-
+  connect: (cb) => {
     return mongoose
       .connect(
-        "mongodb://localhost:27017/exampleDb",
-        // "mongodb+srv://Admin:Admin123456@ptos.77jsw.mongodb.net/PTOS?retryWrites=true&w=majority",
-        { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false }
+        "mongodb+srv://Admin:Admin123456@ptos.77jsw.mongodb.net/PTOS?retryWrites=true&w=majority",
+        {
+          useNewUrlParser: true,
+          useCreateIndex: true,
+          useUnifiedTopology: true,
+          useFindAndModify: false,
+        }
       )
       .then(function () {
         cb();
@@ -17,5 +20,5 @@ module.exports = {
         console.error(err.message.red);
         process.exit(1);
       });
-  }
+  },
 };

@@ -57,6 +57,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "randexp": "^0.5.3",
+    "reverse-geocoding": "^3.0.2",
     "socket.io": "^2.0.4",
     "socketio-jwt": "^4.6.2",
     "strong-soap": "^3.0.1",
