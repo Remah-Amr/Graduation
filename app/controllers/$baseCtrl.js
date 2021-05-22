@@ -27,7 +27,10 @@ module.exports = function (a, b, c) {
     req.on('close', function () { });
 
     files = files || [];
+
+    // console.log(files)
     storage = storage || LocalStorage();
+    // /console.log(storage)
     let uploader = multer({ storage: storage }).fields(files);
     return uploader(req, res, err => {
       // handle uploading errors (if any)
@@ -38,6 +41,7 @@ module.exports = function (a, b, c) {
         console.log('here')
         return APIResponse.ServerError(res, err);
       }
+
 
       // [TOOD]: use qs for advanced fetch (filter, sorting)
       req.queryFilter = {};

@@ -27,6 +27,7 @@ const postSchema = new mongoose.Schema(
             ref: "user",
             required: true,
         },
+
         images: [{ type: String }],
         content: {
             type: String,
@@ -70,6 +71,7 @@ const response = (doc, options) => {
             doc.flavor = key !== undefined ? doc.reactions[key].flavor : null
 
         }
+
     }
     return {
         id: doc.id,

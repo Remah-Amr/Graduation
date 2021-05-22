@@ -24,6 +24,11 @@ apiRouter.post(
 apiRouter.post("/login-facebook", ctrls.AuthCtrl.loginFacebook);
 
 apiRouter.post("/test", ctrls.AuthCtrl.test);
+
+
+apiRouter.post("/test/up", ctrls.TestCtrl.upload);
+// apiRouter.post("/test", ctrls.AuthCtrl.test);
+// apiRouter.post("/test", ctrls.AuthCtrl.test);
 // private
 apiRouter.use(policies.isAuthenticated);
 
