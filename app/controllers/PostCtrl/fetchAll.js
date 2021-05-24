@@ -17,7 +17,7 @@ module.exports = $baseCtrl(
             },
             {
                 ...req.queryOptions,
-                populate: [{ path: 'author', select: "username photo" }, 'sharedPost']
+                populate: [{ path: 'sharedPost', populate: { path: 'author', select: 'username photo' } }, { path: 'author', select: "username photo" }]
             }
         )
 
