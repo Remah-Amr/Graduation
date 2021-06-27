@@ -22,4 +22,5 @@ module.exports = {
   conversation: require("./conversation.model"),
   message: require("./message.model"),
   weather: require("./weather.model"),
+  test: require("./test.model"),
 };

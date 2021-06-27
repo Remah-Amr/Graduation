@@ -25,6 +25,12 @@ apiRouter.post("/login-facebook", ctrls.AuthCtrl.loginFacebook);
 
 apiRouter.post("/test", ctrls.AuthCtrl.test);
 
+apiRouter.post("/lazooz", ctrls.TestCtrl.createOne);
+apiRouter.get("/lazooz", ctrls.TestCtrl.fetchAll);
+apiRouter.get("/lazooz/:id", ctrls.TestCtrl.fetchOne);
+apiRouter.put("/lazooz/:id", ctrls.TestCtrl.updateOne);
+apiRouter.delete("/lazooz/:id", ctrls.TestCtrl.deleteOne);
+
 apiRouter.post("/weather", ctrls.WeatherCtrl.add);
 apiRouter.get("/weather", ctrls.WeatherCtrl.fetchAll);
 // private
