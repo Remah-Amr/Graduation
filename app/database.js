@@ -5,7 +5,7 @@ module.exports = {
   connect: (cb) => {
     return mongoose
       .connect(
-        "mongodb+srv://Admin:Admin123456@indzone.qv991.mongodb.net/api?retryWrites=true&w=majority",
+        "mongodb+srv://mohamed:XPhMw6APxmqcY48d@cluster0.1wylb.mongodb.net/any?retryWrites=true&w=majority",
         {
           useNewUrlParser: true,
           useCreateIndex: true,
