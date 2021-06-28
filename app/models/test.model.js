@@ -14,6 +14,7 @@ const schema = new mongoose.Schema(
     ],
     cost: Number,
     isValid: Boolean,
+    photo: String,
   },
   { timestamps: true }
 );
@@ -21,6 +22,7 @@ const schema = new mongoose.Schema(
 const response = (doc) => {
   return {
     id: doc.id,
+    photo: doc.photo,
     name: doc.name,
     hobbies: doc.hobbies,
     cost: doc.cost,
