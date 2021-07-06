@@ -11,7 +11,7 @@ module.exports = $baseCtrl(
             {},
             {
                 ...req.queryOptions,
-                populate: ['owner', 'cars', 'to', 'from']
+                populate: ['owner', 'cars', 'gove1', 'gove2']
             }
         )
         return APIResponse.Ok(res, cars)
