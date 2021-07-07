@@ -9,18 +9,9 @@ module.exports = $baseCtrl(
         let gove = req.params.gove
         let lineCar = req.params.stationId
         console.log(lineCar)
-        // let station = await models.station.fetchAll(
-        //     req.allowPagination,
-        //     {
-        //         _id: lineCar
-
-        //     }, {
-        //     ...req.queryOptions,
-        //     populate: ['carsLine']
-        // }
-
-        // )
         let station = await models.station.findById(lineCar).populate('carsLine')
+        if (!station) return APIResponse.NotFound(res, 'staion not found')
+
         return APIResponse.Ok(res, station.carsLine)
     }
 );
