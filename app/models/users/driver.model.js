@@ -11,6 +11,10 @@ const schema = new mongoose.Schema({
         type: Number,
         ref: 'car'
     },
+    driverType: {
+        type: String,
+        enum: ["travel", "bublic"],
+    },
     owners: [{
         type: Number,
         ref: 'owner'
@@ -32,6 +36,6 @@ const schema = new mongoose.Schema({
     rating: {
         type: Number,
         default: 0,
-      }
+    }
 }, { discriminatorKey: "role" });
 module.exports = UserModel.discriminator("driver", schema);

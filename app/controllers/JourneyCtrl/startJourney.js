@@ -10,20 +10,29 @@ module.exports = $baseCtrl(
         if (car.current_driver) {
             return APIResponse.Forbidden(res, " Car Alredy In Use .");
         }
-        if (car.type === 'travel') {
-            let stationCar = await models.station.findOne({
-                $and: [{ from: car.from }, { to: car.to }]
-            })
-            if (stationCar.availableCar[0] != car.id) {
-                return APIResponse.BadRequest(res, " It's not your turn  .");
+        if (car.transportType === 'travel') {
 
+            let stationCar = await models.station.findById(car.station)
+            if (!stationCar) return APIResponse.NotFound(res, 'staion not found')
+
+            if (req.body.currentGove == stationCar.availableCarGoev1.gove1) {
+                let key = stationCar.availableCarGoev1.cars
+                for (let i = 0; i < key.length; i++) {
+                    if (key[i] == car.id) {
+                        await key.splice(key.indexOf(key[i]), 1)
+                    }
+                }
             }
-
-
-
+            if (req.body.currentGove == stationCar.availableCarGoev2.gove2) {
+                let key = stationCar.availableCarGoev2.cars
+                for (let i = 0; i < key.length; i++) {
+                    if (key[i] == car.id) {
+                        await key.splice(key.indexOf(key[i]), 1)
+                    }
+                }
+            }
+            await stationCar.save()
         }
-
-
         let newjourney = await new models.journey({
             driver: req.me.id,
             car: req.me.current_car,
