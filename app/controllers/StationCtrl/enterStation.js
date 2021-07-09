@@ -16,6 +16,10 @@ module.exports = $baseCtrl(
         const stationCar = await models.station.findById(car.station)
         console.log(stationCar.availableCarGoev1)
         if (!stationCar) return APIResponse.NotFound(res, 'staion not found')
+        //   check car is entered in any staion 
+        let existCar1 = stationCar.availableCarGoev1.cars.includes(car.id)
+        let existCar2 = stationCar.availableCarGoev2.cars.includes(car.id)
+        if (existCar1 || existCar2 === true) return APIResponse.BadRequest(res, " car alrady enterd!")
 
         if (req.body.currentGove === stationCar.availableCarGoev1.gove1) {
             stationCar.availableCarGoev1.cars.push(car.id)
@@ -23,8 +27,6 @@ module.exports = $baseCtrl(
         if (req.body.currentGove === stationCar.availableCarGoev2.gove2) {
             stationCar.availableCarGoev2.cars.push(car.id)
         }
-
-        // stationCar.availableCar.push(car.id)
         await stationCar.save()
         return APIResponse.Created(res, stationCar)
     }
