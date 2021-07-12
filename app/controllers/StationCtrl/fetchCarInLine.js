@@ -16,7 +16,10 @@ module.exports = $baseCtrl(async (req, res) => {
         { gov1: gover2, gov2: gover1 },
       ],
     })
-    .populate("carsLine");
+    .populate({
+      path: "carsLine",
+      populate: { path: "owner", select: "rating username photo phone" },
+    });
   if (!stationLine) return APIResponse.NotFound(res, "staion not found");
   console.log("here");
   let carsInLine = stationLine.carsLine;
