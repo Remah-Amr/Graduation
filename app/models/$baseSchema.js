@@ -14,6 +14,7 @@ module.exports = (modelName, schema, options = {}) => {
   // static methods
   if (options.paginate !== false) {
     schema.statics.fetchAll = function (paginate = true, ...args) {
+      console.log(args[0])
       if (!paginate) return this.find(args[0], null, args[1]);
       return this.paginate(args[0], args[1]);
     };

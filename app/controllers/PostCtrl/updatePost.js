@@ -18,11 +18,17 @@ module.exports = $baseCtrl(
         photos = [
             ...(req.body.oldImg ? req.body.oldImg : [])
         ]
-        if (req.files && req.files["photo"]) {
-            for (let i = 0; i < req.files["photo"].length; i++) {
-                photos.push(req.files['photo'][i].secure_url)
+
+        if (req.body.oldImg || req.files && req.files["photo"]) {
+            if (req.files && req.files["photo"]) {
+
+                for (let i = 0; i < req.files["photo"].length; i++) {
+                    photos.push(req.files['photo'][i].secure_url)
+                }
             }
+
             post.images = photos
+
 
         }
         if (req.body.content) {
@@ -34,4 +40,5 @@ module.exports = $baseCtrl(
         return APIResponse.Created(res, post);
 
     })
+
 

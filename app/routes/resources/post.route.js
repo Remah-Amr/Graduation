@@ -8,6 +8,7 @@ router.post('/posts/:postId/comments', ctrls.PostCtrl.createPost)
 router.post('/comments/:commentId/replies', ctrls.PostCtrl.createPost)
 router.post('/share/:postId/post', ctrls.PostCtrl.sharePost)
 router.post('/posts/:postId', ctrls.PostCtrl.addRect)
+router.get('/posts/:postId', ctrls.PostCtrl.fetchReacts)
 
 
 router.get('/fetch/post', ctrls.PostCtrl.fetchAll)

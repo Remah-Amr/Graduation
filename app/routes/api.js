@@ -25,8 +25,15 @@ apiRouter.post("/login-facebook", ctrls.AuthCtrl.loginFacebook);
 
 apiRouter.post("/test", ctrls.AuthCtrl.test);
 
+<<<<<<< HEAD
 apiRouter.post("/weather", ctrls.WeatherCtrl.add);
 apiRouter.get("/weather", ctrls.WeatherCtrl.fetchAll);
+=======
+
+apiRouter.post("/test/up", ctrls.TestCtrl.upload);
+// apiRouter.post("/test", ctrls.AuthCtrl.test);
+// apiRouter.post("/test", ctrls.AuthCtrl.test);
+>>>>>>> b46d2da35598edd7ed051055ed8abbd51a0b1de6
 // private
 apiRouter.use(policies.isAuthenticated);
 
