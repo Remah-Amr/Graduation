@@ -20,11 +20,13 @@ module.exports = $baseCtrl(async (req, res) => {
     currentCar = stationLine.availableCarGoev1.cars[0];
   }
   if (stationLine.availableCarGoev2.gove2 === req.body.from) {
-    currentCar = stationCar.availableCarGoev2.cars[0];
+    currentCar = stationLine.availableCarGoev2.cars[0];
   }
 
   // this to used in transaction method to fech current journey
-  let car = await models._car.findById(currentCar);
+  let car = await models._car
+    .findById(currentCar)
+    .populate({ path: "owner", select: "rating username photo phone" });
   if (!car) return APIResponse.NotFound(res, "not found current car");
 
   return APIResponse.Created(res, car);
