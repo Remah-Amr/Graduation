@@ -1,7 +1,11 @@
 const $baseCtrl = require("../$baseCtrl");
 const { APIResponse } = require("../../utils");
 const axios = require("axios");
+const models = require("../../models");
+
 module.exports = $baseCtrl(async (req, res) => {
+  let car = await models._car.findById(64);
+  await car.set({ numberOfSeats: 14 }).save();
   console.log("remah");
 });
 
@@ -93,4 +97,3 @@ module.exports = $baseCtrl(async (req, res) => {
   return APIResponse.Ok(res, "OK");
 });
 */
-
