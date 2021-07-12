@@ -22,22 +22,24 @@ module.exports = $baseCtrl(async (req, res) => {
 
   if (!stationCar) return APIResponse.NotFound(res, "staion not found");
 
-  if (req.body.currentGove == stationCar.availableCarGoev1.gove1) {
+  if (true) {
     let key = stationCar.availableCarGoev1.cars;
     for (let i = 0; i < key.length; i++) {
       if (key[i] == car.id) {
-        await key.splice(key.indexOf(key[i]), 1);
+        key.splice(i, 1);
+        break;
       }
     }
   }
-  if (req.body.currentGove == stationCar.availableCarGoev2.gove2) {
+  if (true) {
     let key = stationCar.availableCarGoev2.cars;
     for (let i = 0; i < key.length; i++) {
       if (key[i] == car.id) {
-        key.splice(key.indexOf(key[i]), 1);
+        key.splice(i, 1);
+        break;
       }
     }
   }
   await stationCar.save();
-  return APIResponse.Created(res, stationCar.availableCarGoev1);
+  return APIResponse.Created(res, stationCar);
 });
