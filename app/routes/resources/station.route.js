@@ -6,7 +6,7 @@ let router = express.Router();
 router.post("/station/add", ctrls.StationCtrl.createStation);
 router.post("/station/enter", ctrls.StationCtrl.enterStation);
 router.post("/station/leave", ctrls.StationCtrl.leaveStation);
-router.get("/station/current/car", ctrls.StationCtrl.currentCar);
+router.post("/station/current/car", ctrls.StationCtrl.currentCar);
 router.get("/station/:stationId", ctrls.StationCtrl.fetchAllStation);
 router.get("/stations", ctrls.StationCtrl.fetchAll);
 router.get("/station/car/:carId", ctrls.StationCtrl.fetchSingleCar);
