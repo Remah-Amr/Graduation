@@ -5,7 +5,7 @@ const { APIResponse } = require("../../utils");
 
 module.exports = $baseCtrl(async (req, res) => {
   // start journey
-  const car = await models._car.findById(req.me.cars[0]);
+  const car = await models._car.findById(req.me.current_car);
   if (!car)
     return APIResponse.NotFound(
       res,
