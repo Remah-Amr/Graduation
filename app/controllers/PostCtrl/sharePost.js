@@ -2,6 +2,7 @@ const $baseCtrl = require("../$baseCtrl");
 const models = require("../../models");
 const { APIResponse } = require("../../utils");
 const cloudinaryStorage = require("../../services/cloudinaryStorage");
+const { populate } = require("../../models/users/admin.model");
 
 module.exports = $baseCtrl(
     [{ name: "photo", maxCount: 10 }], cloudinaryStorage,
@@ -15,12 +16,17 @@ module.exports = $baseCtrl(
             return APIResponse.NotFound(res, 'noooooooo');
 
         }
+
         let photos = []
         if (req.files && req.files["photo"]) {
             for (let i = 0; i < req.files["photo"].length; i++) {
                 photos.push(req.files['photo'][i].secure_url)
             }
         }
+
+
+
+
         let createdPost = await models.post({
 
             depth: 0,
@@ -30,17 +36,13 @@ module.exports = $baseCtrl(
             reactions: [],
             comments: [],
             isShared: true,
-            sharedPost: post.id//old post 
+            sharedPost: post.sharedPost !== undefined ? post.sharedPost : post.id //old post 
         }).save();
-
-        return APIResponse.Created(res, createdPost);
-
-
-
-
-
-
-
+        const response = await models.post
+            .findById(createdPost.id)
+            .populate({ path: 'sharedPost', populate: { path: 'author', select: 'username photo' } })
+        console.log(createdPost)
+        return APIResponse.Created(res, response);
 
     })
 

@@ -121,6 +121,7 @@ const response = (doc, options) => {
     country: doc.country,
     enabled: doc.enabled,
     birthdate: doc.birthdate,
+    driverType: doc.driverType,
     pushTokens: doc.pushTokens,
     role: doc.role,
     createdAt: doc.createdAt,

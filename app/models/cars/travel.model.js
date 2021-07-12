@@ -4,13 +4,18 @@ const CarModel = require("./_car.model");
 const schema = new mongoose.Schema(
     {
 
-        from: {
+        gove1: {
             type: Number,
             ref: "Governorate"
         },
-        to: {
+        gove2: {
             type: Number,
             ref: "Governorate"
+        },
+        station: {
+            type: Number,
+            ref: "station"
+
         }
     },
     { discriminatorKey: "transportType" }

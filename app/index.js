@@ -6,7 +6,7 @@ const server = require('./server');
 
 (() => {
   console.info(
-    '📦"PTOS "'.blue +
+    ' 📦 " PTOS "'.blue +
     ' API backend ⚡️ powered by '.green +
     '"7ottos & Remah "'.magenta
   );

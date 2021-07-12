@@ -20,9 +20,10 @@ module.exports = $baseCtrl(
         let photos = []
         if (req.files && req.files["photo"]) {
             for (let i = 0; i < req.files["photo"].length; i++) {
-                photos.push(req.files['photo'][i].secure_url)
+                photos.push(req.files['photo'][i].path)
             }
         }
+        console.log(photos)
         let createdPost = await models.post({
             depth: type === 'post' ? 0 : post.depth + 1,
             directParent: type === 'post' ? null : post.id,
@@ -30,7 +31,7 @@ module.exports = $baseCtrl(
                 ...(type !== 'post' ? [post.id] : []),// direct parent 
                 ...(type === 'reply' ? post.parents : []),
             ],
-            author: user.id,
+            author: 10,//"user.id",
             images: photos,
             content: !req.body.content ? null : req.body.content,
             reactions: [],

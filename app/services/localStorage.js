@@ -6,6 +6,7 @@ const APIResponse = require('../utils/APIResponse');
 module.exports = options => {
   options = options || {};
   let dest = options.dest || './uploads';
+  // console.log(dest.options)
   return multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, dest);
@@ -20,6 +21,7 @@ module.exports = options => {
           Date.now() +
           '.' +
           mime.getExtension(file.mimetype);
+        // console.log(fileName)
         cb(null, fileName);
       });
     }
