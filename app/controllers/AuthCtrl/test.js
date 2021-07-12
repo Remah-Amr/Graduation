@@ -4,9 +4,8 @@ const axios = require("axios");
 const models = require("../../models");
 
 module.exports = $baseCtrl(async (req, res) => {
-  let car = await models._car.findById(64);
-  await car.set({ numberOfSeats: 14 }).save();
-  console.log("remah");
+  let journey = await models.journey.find().sort("-_id").limit(1);
+  return APIResponse.Ok(res, journey);
 });
 
 /*
