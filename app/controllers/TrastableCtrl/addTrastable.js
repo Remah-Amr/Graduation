@@ -11,7 +11,6 @@ module.exports = $baseCtrl(async (req, res) => {
     return APIResponse.NotFound(res, "No user with that phone");
   // to ensure user not sent request to specific user more thane 1 time
   let prevReq = await models.trustable.findOne({
-    status: "pending",
     requester: req.me.id,
     recipient: existReceiver.id,
   });
