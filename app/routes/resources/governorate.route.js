@@ -4,6 +4,11 @@ const policies = require("../../policies");
 let router = express.Router();
 
 router.get("/governorates", ctrls.GovernorateCtrl.fetchAll);
+router.get(
+  "/governorates-driver",
+  policies.isAllowed(["driver", "owner"]),
+  ctrls.GovernorateCtrl.fetchAllDriver
+);
 router.post(
   "/governorate/addNew",
   policies.isAllowed(["admin", "employee"]),
