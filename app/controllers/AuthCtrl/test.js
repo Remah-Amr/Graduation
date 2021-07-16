@@ -3,9 +3,8 @@ const { APIResponse } = require("../../utils");
 const models = require("../../models");
 
 module.exports = $baseCtrl(async (req, res) => {
-  await models.trustable.deleteMany();
-  await models.follow.deleteMany();
-  return APIResponse.Ok(res, "OK");
+  let drivers = await models._car.find();
+  return APIResponse.Ok(res, drivers);
 });
 
 /*

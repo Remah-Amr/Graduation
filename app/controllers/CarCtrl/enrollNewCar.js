@@ -17,6 +17,9 @@ module.exports = $baseCtrl(async (req, res) => {
     return APIResponse.BadRequest(res, " owner not found .");
   }
 
+  if (existOwner.driverType !== req.body.transportType)
+    return APIResponse.Forbidden(res, "Cant assign public to travel");
+
   //   to ensure genterate unique code to every car
   let code;
   do {
