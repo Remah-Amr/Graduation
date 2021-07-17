@@ -10,6 +10,7 @@ module.exports = $baseCtrl(async (req, res) => {
   if (!user) return APIResponse.NotFound(res, "No User with that id");
   let prevFollow = await models.follow.findOne({
     receiver: id,
+    sender: req.me.id,
     createdAt: {
       $gte: moment().utc().subtract(5, "hour").toDate(),
     },
