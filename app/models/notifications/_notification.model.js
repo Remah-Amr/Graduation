@@ -1,41 +1,43 @@
-const mongoose = require('mongoose');
-const $baseModel = require('../$baseModel');
+const mongoose = require("mongoose");
+const $baseModel = require("../$baseModel");
 
 const schema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     body: {
       type: String,
-      required: true
+      required: true,
+    },
+    user: {
+      type: Number,
+      ref: "user",
+    },
+    targetUsers: [
+      {
+        type: Number,
+        ref: "user",
+      },
+    ],
+    subjectType: {
+      type: String,
+      enum: ["admin"],
+    },
+    subject: {
+      type: Number,
+      refPath: "subjectType",
+    },
+    seen: {
+      type: Boolean,
+      default: false,
     },
     icon: {
       type: String,
       default:
-        'https://res.cloudinary.com/derossy-backup/image/upload/v1555206853/deross-samples/notifications/bell.png'
+        "https://res.cloudinary.com/derossy-backup/image/upload/v1555206853/deross-samples/notifications/bell.png",
     },
-    initiator: {
-      type: Number,
-      ref: 'user'
-    },
-    receiver: {
-      type: Number,
-      ref: 'user'
-    },
-    read: {
-      type: Boolean,
-      default: false
-    },
-    subjectType: {
-      type: String,
-      enum: ["post", "comment", "solution", "materila", "lesson", "exam", "session", "admin"]
-    },
-    subject: {
-      type: Number,
-      refPath: "subjectType"
-    }
   },
   { timestamps: true }
 );
@@ -44,28 +46,32 @@ schema.methods.toFirebaseNotification = function () {
   return {
     notification: {
       title: this.title,
-      body: this.body
-    }
+      body: this.body,
+    },
   };
 };
 
-const response = doc => {
+const response = (doc) => {
   return {
     id: doc.id,
-    // type: doc.type,
     title: doc.title,
     body: doc.body,
+    titleAr: doc.titleAr,
+    bodyAr: doc.bodyAr,
+    titleEn: doc.titleEn,
+    bodyEn: doc.bodyEn,
     icon: doc.icon,
-    read: doc.read,
-    initiator: doc.initiator,
-    receiver: doc.receiver,
-    subjectType: doc.subjectType,
+    // targetUsers: doc.targetUsers,
+    user: doc.user,
+    type: doc.type,
+    seen: doc.seen,
     subject: doc.subject,
+    subjectType: doc.subjectType,
     createdAt: doc.createdAt,
-    updatedAt: doc.updatedAt
+    updatedAt: doc.updatedAt,
   };
 };
 
-module.exports = $baseModel('notification', schema, {
-  responseFunc: response
+module.exports = $baseModel("notification", schema, {
+  responseFunc: response,
 });

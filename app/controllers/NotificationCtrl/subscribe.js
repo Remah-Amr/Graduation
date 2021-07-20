@@ -30,7 +30,6 @@ module.exports = $baseCtrl(async (req, res) => {
     }
   }
 
-  await user.save();
-  console.log(user.pushTokens)
+  await user.save({ validateBeforeSave: false });
   return APIResponse.NoContent(res);
 });

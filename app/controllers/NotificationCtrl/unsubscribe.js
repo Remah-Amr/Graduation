@@ -13,7 +13,7 @@ module.exports = $baseCtrl(async (req, res) => {
     );
     if (index !== undefined) {
       user.pushTokens.splice(index, 1);
-      await user.save();
+      await user.save({ validateBeforeSave: false });
     }
   }
 

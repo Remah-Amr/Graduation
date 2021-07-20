@@ -67,5 +67,39 @@ module.exports = $baseCtrl(async (req, res) => {
   req.me.wallet -= totalCost;
   await req.me.save();
 
+  await sendNotification({
+    title: `واالعة ي صحبي  📦`,
+    body: `${req.me.username} دفعلك ${totalCost} 😚 دلوقتي .. ابسط ي عم `,
+    query: { _id: current_driver.id },
+    user: req.me.id,
+    subjectType: "admin",
+    subject: 20,
+  });
+
   return APIResponse.Created(res, newTransaction);
 });
+
+const sendNotification = async (data) => {
+  try {
+    // Send Notification
+    const clients = await models._user.find(data.query);
+    const targetUsers = clients.map((user) => user.id);
+    const notification = await new models.notification({
+      title: data.title,
+      body: data.body,
+      user: data.user,
+      targetUsers: targetUsers,
+      subjectType: data.subjectType,
+      subject: data.subject,
+    }).save();
+
+    const receivers = clients;
+    for (let i = 0; i < receivers.length; i++) {
+      await receivers[i].sendNotification(
+        notification.toFirebaseNotification()
+      );
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
