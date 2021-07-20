@@ -24,4 +24,5 @@ module.exports = {
   conversation: require("./conversation.model"),
   message: require("./message.model"),
   weather: require("./weather.model"),
+  ads: require("./advertisement.model"),
 };
