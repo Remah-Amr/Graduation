@@ -12,6 +12,7 @@ module.exports = $baseCtrl(async (req, res) => {
     {
       ...req.queryOptions,
       populate: { path: "user", select: "username photo phone" },
+      sort: "-_id",
     }
   );
 
