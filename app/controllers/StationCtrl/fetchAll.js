@@ -9,7 +9,7 @@ module.exports = $baseCtrl(async (req, res) => {
     req.queryFilter,
     {
       ...req.queryOptions,
-      select: "name",
+      select: "name gov1 gov2",
     }
   );
 
