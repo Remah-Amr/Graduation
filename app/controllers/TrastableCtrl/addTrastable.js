@@ -13,9 +13,9 @@ module.exports = $baseCtrl(async (req, res) => {
   let prevReq = await models.trustable.findOne({
     requester: req.me.id,
     recipient: existReceiver.id,
+    status: { $in: ["pending", "accepted"] },
   });
-  if (prevReq)
-    return APIResponse.Forbidden(res, "You already send request to that user");
+  if (prevReq) return APIResponse.Ok(res, prevReq);
   // creat trustable document with pending status
   const trastReq = await new models.trustable({
     requester: req.me.id,
